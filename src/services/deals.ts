@@ -1,12 +1,7 @@
-
 import type { QueryData } from "@supabase/supabase-js";
 
 import { supabase } from "@/integrations/supabase/client";
-import type {
-  Deal,
-  DealPlatform,
-  DealStatus,
-} from "@/types/deal";
+import type { Deal, DealPlatform, DealStatus } from "@/types/deal";
 
 const DEAL_SELECT = `
   id,
@@ -32,8 +27,7 @@ const DEAL_SELECT = `
 ` as const;
 
 // Consulta base reutilizada pelas funções do serviço
-const dealsQuery = () =>
-  supabase.from("deals").select(DEAL_SELECT);
+const dealsQuery = () => supabase.from("deals").select(DEAL_SELECT);
 
 // Tipo inferido diretamente da consulta
 type DealsQueryResult = QueryData<ReturnType<typeof dealsQuery>>;
@@ -78,27 +72,21 @@ export async function getPublishedDeals(): Promise<Deal[]> {
     .limit(50);
 
   if (error) {
-    throw new Error(
-      `Erro ao carregar ofertas: ${error.message}`,
-    );
+    throw new Error(`Erro ao carregar ofertas: ${error.message}`);
   }
 
   return (data ?? []).map(mapDeal);
 }
 
 // Busca uma oferta específica pelo UUID
-export async function getDealById(
-  id: string,
-): Promise<Deal | null> {
+export async function getDealById(id: string): Promise<Deal | null> {
   const { data, error } = await dealsQuery()
     .eq("id", id)
     .in("status", ["published", "expired"])
     .maybeSingle();
 
   if (error) {
-    throw new Error(
-      `Erro ao carregar oferta: ${error.message}`,
-    );
+    throw new Error(`Erro ao carregar oferta: ${error.message}`);
   }
 
   return data ? mapDeal(data) : null;

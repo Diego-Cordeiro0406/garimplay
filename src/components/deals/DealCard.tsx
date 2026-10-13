@@ -1,13 +1,8 @@
-
 import { Eye, Gamepad2 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 import { Badge } from "@/components/ui/badge";
-import {
-  calculateDiscount,
-  formatPrice,
-  PLATFORM_LABELS,
-} from "@/lib/deals";
+import { calculateDiscount, formatPrice, PLATFORM_LABELS } from "@/lib/deals";
 import type { Deal } from "@/types/deal";
 
 interface DealCardProps {
@@ -15,10 +10,7 @@ interface DealCardProps {
 }
 
 export function DealCard({ deal }: DealCardProps) {
-  const discount = calculateDiscount(
-    deal.price,
-    deal.originalPrice,
-  );
+  const discount = calculateDiscount(deal.price, deal.originalPrice);
 
   const isExpired = deal.status === "expired";
 
@@ -61,10 +53,7 @@ export function DealCard({ deal }: DealCardProps) {
           />
         ) : (
           <div className="flex size-full items-center justify-center text-muted-foreground">
-            <Gamepad2
-              className="size-10 sm:size-12"
-              strokeWidth={1.25}
-            />
+            <Gamepad2 className="size-10 sm:size-12" strokeWidth={1.25} />
           </div>
         )}
 
@@ -120,12 +109,11 @@ export function DealCard({ deal }: DealCardProps) {
         <div className="mt-auto pt-3 sm:pt-4">
           {/* Preço original */}
           <div className="min-h-5">
-            {deal.originalPrice != null &&
-              deal.originalPrice > deal.price && (
-                <p className="text-xs text-muted-foreground line-through">
-                  {formatPrice(deal.originalPrice)}
-                </p>
-              )}
+            {deal.originalPrice != null && deal.originalPrice > deal.price && (
+              <p className="text-xs text-muted-foreground line-through">
+                {formatPrice(deal.originalPrice)}
+              </p>
+            )}
           </div>
 
           {/* Preço atual e desconto */}
@@ -155,22 +143,20 @@ export function DealCard({ deal }: DealCardProps) {
           </div>
 
           {/* Loja e link externo */}
-          
-{/* Loja e botão de detalhes */}
-<div className="mt-3 space-y-3 border-t border-border pt-3 sm:mt-4">
-  <div className="flex items-center justify-between gap-2">
-    <span className="text-xs text-muted-foreground">
-      Disponível em
-    </span>
 
-    <span className="truncate text-xs font-medium text-foreground">
-      {deal.store.name}
-    </span>
-  </div>
+          {/* Loja e botão de detalhes */}
+          <div className="mt-3 space-y-3 border-t border-border pt-3 sm:mt-4">
+            <div className="flex items-center justify-between gap-2">
+              <span className="text-xs text-muted-foreground">Disponível em</span>
 
-  <Link
-    to={`/ofertas/${deal.id}`}
-    className="
+              <span className="truncate text-xs font-medium text-foreground">
+                {deal.store.name}
+              </span>
+            </div>
+
+            <Link
+              to={`/ofertas/${deal.id}`}
+              className="
       inline-flex h-9 w-full items-center justify-center
       gap-2 rounded-md bg-primary px-3
       text-sm font-medium text-primary-foreground
@@ -179,12 +165,11 @@ export function DealCard({ deal }: DealCardProps) {
       focus-visible:outline-offset-2
       focus-visible:outline-ring
     "
-  >
-    <Eye className="size-4" />
-    Ver detalhes
-  </Link>
-</div>
-
+            >
+              <Eye className="size-4" />
+              Ver detalhes
+            </Link>
+          </div>
         </div>
       </div>
     </article>

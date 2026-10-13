@@ -1,4 +1,3 @@
-
 import { useState } from "react";
 import { Check, Copy, TicketPercent } from "lucide-react";
 
@@ -25,9 +24,7 @@ export function CouponCode({ code }: CouponCodeProps) {
       <div className="flex items-center gap-2">
         <TicketPercent className="size-4 text-primary" />
 
-        <h2 className="text-sm font-semibold">
-          Cupom de desconto
-        </h2>
+        <h2 className="text-sm font-semibold">Cupom de desconto</h2>
       </div>
 
       <div className="flex items-center gap-3 rounded-md border border-dashed border-primary/50 bg-primary/5 p-3">
@@ -35,13 +32,7 @@ export function CouponCode({ code }: CouponCodeProps) {
           {code}
         </code>
 
-        <Button
-          type="button"
-          variant="outline"
-          size="sm"
-          onClick={handleCopy}
-          className="shrink-0"
-        >
+        <Button type="button" variant="outline" size="sm" onClick={handleCopy} className="shrink-0">
           {copied ? (
             <>
               <Check className="size-4" />
@@ -56,10 +47,7 @@ export function CouponCode({ code }: CouponCodeProps) {
         </Button>
       </div>
 
-      <p
-        aria-live="polite"
-        className="text-xs text-muted-foreground"
-      >
+      <p aria-live="polite" className="text-xs text-muted-foreground">
         {copied
           ? "Cupom copiado para a área de transferência."
           : "Copie o código e aplique-o na loja, conforme as regras da promoção."}

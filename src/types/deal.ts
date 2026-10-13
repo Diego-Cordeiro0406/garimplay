@@ -1,17 +1,7 @@
-
 export type DealPlatform =
-  | "ps4"
-  | "ps5"
-  | "switch"
-  | "switch-2"
-  | "xbox-one"
-  | "xbox-series"
-  | "other";
+  "ps4" | "ps5" | "switch" | "switch-2" | "xbox-one" | "xbox-series" | "other";
 
-export type DealStatus =
-  | "draft"
-  | "published"
-  | "expired";
+export type DealStatus = "draft" | "published" | "expired";
 
 export interface Deal {
   id: string;

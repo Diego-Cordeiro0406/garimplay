@@ -1,15 +1,8 @@
-
 import { useQuery } from "@tanstack/react-query";
 
-import {
-  getDealById,
-  getPublishedDeals,
-} from "@/services/deals";
+import { getDealById, getPublishedDeals } from "@/services/deals";
 
-
-const UUID_REGEX =
-  /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
-
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
 
 export function usePublishedDeals() {
   return useQuery({

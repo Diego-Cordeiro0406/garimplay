@@ -1,4 +1,3 @@
-
 import type { Deal } from "@/types/deal";
 
 export const mockDeals: Deal[] = [

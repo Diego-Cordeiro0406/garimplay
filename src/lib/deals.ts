@@ -1,4 +1,3 @@
-
 import type { DealPlatform } from "@/types/deal";
 
 export const PLATFORM_LABELS: Record<DealPlatform, string> = {
@@ -20,15 +19,10 @@ export function formatPrice(priceInCents: number): string {
   return currencyFormatter.format(priceInCents / 100);
 }
 
-export function calculateDiscount(
-  price: number,
-  originalPrice?: number | null,
-): number | null {
+export function calculateDiscount(price: number, originalPrice?: number | null): number | null {
   if (!originalPrice || originalPrice <= price || price < 0) {
     return null;
   }
 
-  return Math.round(
-    ((originalPrice - price) / originalPrice) * 100,
-  );
+  return Math.round(((originalPrice - price) / originalPrice) * 100);
 }

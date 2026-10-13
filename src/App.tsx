@@ -1,11 +1,21 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { useState } from "react";
-import HomePage from "./pages/HomePage";
-import DealDetailsPage from "./pages/DealDetailsPage";
-import LoginPage from "./pages/LoginPage";
-import NotFoundPage from "./pages/NotFoundPage";
-import { MainLayout } from "./components/MainLayout";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+import { AuthProvider } from "@/contexts/AuthContext";
+import { AdminRoute } from "@/components/auth/AdminRoute";
+import { MainLayout } from "@/components/MainLayout";
+
+import HomePage from "@/pages/HomePage";
+import DealDetailsPage from "@/pages/DealDetailsPage";
+import LoginPage from "@/pages/LoginPage";
+import AdminDashboardPage from "@/pages/admin/AdminDashboardPage";
+import NotFoundPage from "@/pages/NotFoundPage";
+import { AdminLayout } from "./components/admin/AdminLayout";
+import AdminComingSoonPage from "./pages/admin/AdminComingSoonPage";
+import AdminDealsPage from "./pages/admin/AdminDealsPage";
+import AdminNewDealPage from "./pages/admin/AdminNewDealPage";
+import AdminEditDealPage from "./pages/admin/AdminEditDealPage";
 
 function App() {
   const [queryClient] = useState(
@@ -18,35 +28,69 @@ function App() {
             refetchOnWindowFocus: false,
           },
         },
-      }),
+      })
   );
 
   return (
     <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <MainLayout>
-               <HomePage />
-            </MainLayout>
-          }
-        />
-        <Route
-          path="/ofertas/:id"
-          element={
-            <MainLayout>
-              <DealDetailsPage />
-            </MainLayout>
-          }
-        />
-        <Route path="/admin/login" element={<LoginPage />} />
-        <Route path="*" element={<NotFoundPage />} />
-      </Routes>
-      </BrowserRouter>
+      <AuthProvider>
+        <BrowserRouter>
+          <Routes>
+            {/* Rotas públicas */}
+            <Route
+              path="/"
+              element={
+                <MainLayout>
+                  <HomePage />
+                </MainLayout>
+              }
+            />
+
+            <Route
+              path="/ofertas/:id"
+              element={
+                <MainLayout>
+                  <DealDetailsPage />
+                </MainLayout>
+              }
+            />
+
+            {/* Login administrativo */}
+            <Route path="/admin/login" element={<LoginPage />} />
+
+            {/* Rotas protegidas */}
+
+            <Route element={<AdminRoute />}>
+              <Route path="/admin" element={<AdminLayout />}>
+                <Route index element={<AdminDashboardPage />} />
+
+                <Route path="ofertas" element={<AdminDealsPage />} />
+
+                <Route path="ofertas/nova" element={<AdminNewDealPage />} />
+
+                <Route path="ofertas/:id/editar" element={<AdminEditDealPage />} />
+
+                <Route
+                  path="lojas"
+                  element={
+                    <AdminComingSoonPage
+                      title="Lojas"
+                      description="Gerencie as lojas vinculadas às ofertas."
+                    />
+                  }
+                />
+
+                <Route path="*" element={<Navigate to="/admin" replace />} />
+              </Route>
+            </Route>
+
+            {/* Página não encontrada */}
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </BrowserRouter>
+      </AuthProvider>
     </QueryClientProvider>
-  )
+  );
 }
 
-export default App
+export default App;
