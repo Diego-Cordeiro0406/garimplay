@@ -108,8 +108,13 @@ function DealRow({
       </div>
 
       <div className="flex flex-wrap items-center gap-2 justify-evenly lg:justify-end">
-        <Button variant="outline" className="w-28">
-          <Link to={`/admin/ofertas/${deal.id}/editar`}>Editar</Link>
+        <Button
+          nativeButton={false}
+          variant="outline"
+          className="w-28"
+          render={<Link to={`/admin/ofertas/${deal.id}/editar`} />}
+        >
+          Editar
         </Button>
 
         {deal.status !== "published" ? (
@@ -222,11 +227,9 @@ export default function AdminDealsPage() {
           </p>
         </div>
 
-        <Button className="h-10">
-          <Link className="flex items-center justify-center" to="/admin/ofertas/nova">
-            <Plus className="size-4" />
-            Nova oferta
-          </Link>
+        <Button nativeButton={false} className="h-10" render={<Link to="/admin/ofertas/nova" />}>
+          <Plus className="size-4" />
+          Nova oferta
         </Button>
       </div>
 

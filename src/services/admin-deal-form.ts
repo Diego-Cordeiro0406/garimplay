@@ -1,6 +1,7 @@
 import { supabase } from "@/integrations/supabase/client";
 import type { Database } from "@/integrations/supabase/types";
 import { parsePriceToCents, type DealFormValues } from "@/schemas/deal.schema";
+import { deleteDealImage, getDealImageKey, uploadDealImage } from "./deal-images";
 
 type DealInsert = Database["public"]["Tables"]["deals"]["Insert"];
 
@@ -60,7 +61,7 @@ function toPayload(values: DealFormValues): DealInsert {
   };
 }
 
-export async function createAdminDeal(values: DealFormValues) {
+export async function createAdminDeal(values: DealFormValues, image: File | null = null) {
   const payload = toPayload(values);
 
   const {
@@ -70,6 +71,11 @@ export async function createAdminDeal(values: DealFormValues) {
 
   if (userError || !user) {
     throw new Error("Sessão administrativa inválida.");
+  }
+
+  if (image) {
+    const uploaded = await uploadDealImage(image);
+    payload.image_url = uploaded.publicUrl;
   }
 
   const { data, error } = await supabase
@@ -86,15 +92,62 @@ export async function createAdminDeal(values: DealFormValues) {
   return data;
 }
 
-export async function updateAdminDeal(id: string, values: DealFormValues) {
+export async function updateAdminDeal(
+  id: string,
+  values: DealFormValues,
+  image: File | null = null
+) {
+  const payload = toPayload(values);
+
+  let previousImageUrl: string | null = null;
+
+  if (image) {
+    // Recupera a capa atual antes da substituição.
+    const { data: currentDeal, error: currentError } = await supabase
+      .from("deals")
+      .select("image_url")
+      .eq("id", id)
+      .single();
+
+    if (currentError) {
+      throw currentError;
+    }
+
+    previousImageUrl = currentDeal.image_url;
+
+    // Envia a nova capa ao R2.
+    const uploaded = await uploadDealImage(image);
+    payload.image_url = uploaded.publicUrl;
+  }
+
+  // Atualiza os dados da oferta.
   const { data, error } = await supabase
     .from("deals")
-    .update(toPayload(values))
+    .update(payload)
     .eq("id", id)
     .select("id")
     .single();
 
-  if (error) throw error;
+  if (error) {
+    throw error;
+  }
+
+  // A nova capa já está salva no banco.
+  // A exclusão da anterior é uma operação secundária.
+  if (image && previousImageUrl) {
+    const oldKey = getDealImageKey(previousImageUrl);
+
+    if (oldKey) {
+      try {
+        await deleteDealImage(oldKey);
+      } catch (cleanupError) {
+        console.warn(
+          "Oferta atualizada, mas não foi possível excluir a capa anterior:",
+          cleanupError
+        );
+      }
+    }
+  }
 
   return data;
 }

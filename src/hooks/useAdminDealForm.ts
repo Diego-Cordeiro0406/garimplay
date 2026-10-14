@@ -6,7 +6,13 @@ import {
   getDealFormOptions,
   updateAdminDeal,
 } from "@/services/admin-deal-form";
+
 import type { DealFormValues } from "@/schemas/deal.schema";
+
+export type SaveAdminDealInput = {
+  values: DealFormValues;
+  image: File | null;
+};
 
 export function useDealFormOptions() {
   return useQuery({
@@ -28,8 +34,8 @@ export function useSaveAdminDeal(id?: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (values: DealFormValues) =>
-      id ? updateAdminDeal(id, values) : createAdminDeal(values),
+    mutationFn: ({ values, image }: SaveAdminDealInput) =>
+      id ? updateAdminDeal(id, values, image) : createAdminDeal(values, image),
 
     onSuccess: async () => {
       await Promise.all([
@@ -43,6 +49,12 @@ export function useSaveAdminDeal(id?: string) {
           queryKey: ["deals"],
         }),
       ]);
+
+      if (id) {
+        await queryClient.invalidateQueries({
+          queryKey: ["admin", "deal-edit", id],
+        });
+      }
     },
   });
 }

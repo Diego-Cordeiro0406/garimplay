@@ -41,11 +41,9 @@ export default function AdminEditDealPage() {
             Tentar novamente
           </Button>
 
-          <Button variant="ghost">
-            <Link to="/admin/ofertas">
-              <ArrowLeft className="size-4" />
-              Voltar
-            </Link>
+          <Button nativeButton={false} variant="ghost" render={<Link to="/admin/ofertas" />}>
+            <ArrowLeft className="size-4" />
+            Voltar
           </Button>
         </div>
       </div>

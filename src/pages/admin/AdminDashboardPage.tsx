@@ -60,11 +60,9 @@ export default function AdminDashboardPage() {
           </p>
         </div>
 
-        <Button className="h-10">
-          <Link className="flex items-center justify-center" to="/admin/ofertas/nova">
-            <Plus className="size-4" />
-            Nova oferta
-          </Link>
+        <Button nativeButton={false} className="h-10" render={<Link to="/admin/ofertas/nova" />}>
+          <Plus className="size-4" />
+          Nova oferta
         </Button>
       </div>
 
@@ -109,11 +107,13 @@ export default function AdminDashboardPage() {
                 <p className="text-xs text-muted-foreground">Últimas cinco ofertas cadastradas</p>
               </div>
 
-              <Button variant="outline" className="w-28">
-                <Link className="flex items-center justify-center" to="/admin/ofertas">
-                  Ver todas
-                  {/* <ArrowRight className="size-4" /> */}
-                </Link>
+              <Button
+                nativeButton={false}
+                variant="outline"
+                className="w-28"
+                render={<Link to="/admin/ofertas" />}
+              >
+                Ver todas
               </Button>
             </div>
 

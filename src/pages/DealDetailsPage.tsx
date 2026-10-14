@@ -68,11 +68,9 @@ export default function DealDetailsPage() {
           </p>
         </div>
 
-        <Button variant="outline">
-          <Link to="/">
-            <ArrowLeft className="size-4" />
-            Voltar para ofertas
-          </Link>
+        <Button nativeButton={false} variant="outline" render={<Link to="/" />}>
+          <ArrowLeft className="size-4" />
+          Voltar para ofertas
         </Button>
       </div>
     );

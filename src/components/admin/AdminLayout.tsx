@@ -200,8 +200,8 @@ export function AdminLayout() {
           </p>
         )}
 
-        <main className="w-full flex-1 px-4 py-7 sm:px-6 lg:px-8 lg:py-9">
-          <div className="mx-auto max-w-7xl">
+        <main className="min-w-0 w-full flex-1 px-4 py-7 sm:px-6 lg:px-8 lg:py-9">
+          <div className="mx-auto w-full min-w-0 max-w-7xl">
             <Outlet />
           </div>
         </main>

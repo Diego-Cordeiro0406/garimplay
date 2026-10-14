@@ -1,6 +1,7 @@
 import { supabase } from "@/integrations/supabase/client";
 import type { DealPlatform, DealStatus } from "@/types/deal";
 import type { Database } from "@/integrations/supabase/types";
+import { deleteDealImage, getDealImageKey } from "./deal-images";
 
 type DealRow = Database["public"]["Tables"]["deals"]["Row"];
 
@@ -146,14 +147,33 @@ export async function updateAdminDealStatus(id: string, status: DealStatus): Pro
   }
 }
 
-export async function deleteAdminDeal(id: string): Promise<void> {
-  const { data, error } = await supabase.from("deals").delete().eq("id", id).select("id").single();
+export async function deleteAdminDeal(id: string) {
+  const { data: deal, error: fetchError } = await supabase
+    .from("deals")
+    .select("id, image_url")
+    .eq("id", id)
+    .single();
 
-  if (error) {
-    throw new Error(`Erro ao excluir oferta: ${error.message}`);
+  if (fetchError) throw fetchError;
+
+  const { error: deleteError } = await supabase
+    .from("deals")
+    .delete()
+    .eq("id", id)
+    .select("id")
+    .single();
+
+  if (deleteError) throw deleteError;
+
+  const imageKey = getDealImageKey(deal.image_url);
+
+  if (imageKey) {
+    try {
+      await deleteDealImage(imageKey);
+    } catch (error) {
+      console.warn("Oferta excluída, mas não foi possível remover sua capa do R2:", error);
+    }
   }
 
-  if (!data) {
-    throw new Error("Oferta não encontrada.");
-  }
+  return { id };
 }

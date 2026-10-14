@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Controller, useForm, type FieldErrors } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router-dom";
@@ -21,6 +21,7 @@ import { useDealFormOptions, useSaveAdminDeal } from "@/hooks/useAdminDealForm";
 import type { Database } from "@/integrations/supabase/types";
 
 import { centsToInput, toLocalDateTime } from "@/lib/formatters";
+import { DealImageUpload } from "./DealImageUpload";
 
 type DealRecord = Database["public"]["Tables"]["deals"]["Row"];
 
@@ -68,7 +69,7 @@ function FormSection({
   children: React.ReactNode;
 }) {
   return (
-    <section className="overflow-hidden rounded-lg border border-border bg-card">
+    <section className="w-full min-w-0 overflow-hidden rounded-lg border border-border bg-card">
       <div className="flex items-start gap-3 border-b border-border p-5">
         <div className="flex size-9 shrink-0 items-center justify-center rounded-md bg-secondary">
           <Icon className="size-4 text-primary" />
@@ -91,12 +92,14 @@ export function DealForm({ deal }: DealFormProps) {
 
   const optionsQuery = useDealFormOptions();
   const saveDeal = useSaveAdminDeal(deal?.id);
+  const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   const {
     register,
     control,
     handleSubmit,
     reset,
+    getValues,
     formState: { errors, isDirty, isSubmitting },
   } = useForm<DealFormValues>({
     resolver: zodResolver(dealFormSchema),
@@ -112,7 +115,10 @@ export function DealForm({ deal }: DealFormProps) {
 
   async function onSubmit(values: DealFormValues) {
     try {
-      await saveDeal.mutateAsync(values);
+      await saveDeal.mutateAsync({
+        values,
+        image: selectedImage,
+      });
       navigate("/admin/ofertas", { replace: true });
     } catch {
       // A mensagem de erro será exibida pela mutation.
@@ -130,7 +136,7 @@ export function DealForm({ deal }: DealFormProps) {
   const saving = isSubmitting || saveDeal.isPending;
 
   return (
-    <div className="space-y-7">
+    <div className="space-y-7 w-full min-w-0">
       <div className="space-y-4">
         <Link className="flex text-sm items-center" to="/admin/ofertas">
           <ArrowLeft className="size-4 mr-1" />
@@ -166,7 +172,11 @@ export function DealForm({ deal }: DealFormProps) {
           </Button>
         </div>
       ) : (
-        <form onSubmit={handleSubmit(onSubmit, onInvalid)} noValidate className="space-y-6">
+        <form
+          onSubmit={handleSubmit(onSubmit, onInvalid)}
+          noValidate
+          className="w-full min-w-0 space-y-6"
+        >
           <FormSection
             icon={Gamepad2}
             title="Informações do jogo"
@@ -194,17 +204,12 @@ export function DealForm({ deal }: DealFormProps) {
               <FieldError message={errors.description?.message} />
             </div>
 
-            <div className="space-y-2">
-              <Label htmlFor="imageUrl">URL da imagem</Label>
-              <Input
-                id="imageUrl"
-                type="url"
-                placeholder="https://exemplo.com/imagem.jpg"
-                aria-invalid={Boolean(errors.imageUrl)}
-                {...register("imageUrl")}
-              />
-              <FieldError message={errors.imageUrl?.message} />
-            </div>
+            <DealImageUpload
+              value={selectedImage}
+              currentImageUrl={getValues("imageUrl")}
+              onChange={setSelectedImage}
+              disabled={saving}
+            />
 
             <div className="space-y-2">
               <Label>Plataforma *</Label>
@@ -284,8 +289,8 @@ export function DealForm({ deal }: DealFormProps) {
               <FieldError message={errors.storeId?.message} />
             </div>
 
-            <div className="grid gap-5 sm:grid-cols-2">
-              <div className="space-y-2">
+            <div className="grid min-w-0 grid-cols-1 gap-5 sm:grid-cols-2">
+              <div className="space-y-2 min-w-0">
                 <Label htmlFor="price">Preço atual (R$) *</Label>
                 <Input
                   id="price"
@@ -297,7 +302,7 @@ export function DealForm({ deal }: DealFormProps) {
                 <FieldError message={errors.price?.message} />
               </div>
 
-              <div className="space-y-2">
+              <div className="space-y-2 min-w-0">
                 <Label htmlFor="originalPrice">Preço original (R$)</Label>
                 <Input
                   id="originalPrice"
@@ -427,6 +432,7 @@ export function DealForm({ deal }: DealFormProps) {
 
           <div className="flex flex-col-reverse justify-end gap-3 sm:flex-row">
             <Button
+              className="h-10"
               nativeButton={false}
               type="button"
               variant="outline"
@@ -436,7 +442,11 @@ export function DealForm({ deal }: DealFormProps) {
               Cancelar
             </Button>
 
-            <Button type="submit" disabled={saving || (isEditing && !isDirty)}>
+            <Button
+              className="h-10"
+              type="submit"
+              disabled={saving || (isEditing && !isDirty && !selectedImage)}
+            >
               {saving ? (
                 <>
                   <LoaderCircle className="size-4 animate-spin" />
