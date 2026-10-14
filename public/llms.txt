@@ -1,0 +1,23 @@
+# Garimplay
+
+> Plataforma brasileira independente de divulgação de ofertas de jogos em mídia física.
+
+## Sobre
+
+O Garimplay reúne promoções de jogos físicos para consoles como PlayStation, Nintendo e Xbox.
+
+O objetivo é ajudar jogadores e colecionadores a descobrir ofertas de diferentes lojas.
+
+## Ofertas
+
+- Página inicial: https://garimplay.com.br/
+- As ofertas possuem páginas individuais em /ofertas/{id}.
+- Preços, disponibilidade e condições podem mudar sem aviso prévio.
+- Ofertas expiradas podem permanecer acessíveis para consulta.
+
+## Informações importantes
+
+- O Garimplay não vende produtos diretamente.
+- O Garimplay não processa pagamentos.
+- As compras são realizadas nos sites das lojas responsáveis.
+- A plataforma não possui parceria oficial com as lojas divulgadas, salvo indicação expressa em contrário.

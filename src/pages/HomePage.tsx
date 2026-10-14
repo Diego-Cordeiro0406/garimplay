@@ -19,6 +19,7 @@ import {
 import { Fragment } from "react/jsx-runtime";
 import { useEffect, useRef, useState } from "react";
 import { Input } from "@/components/ui/input";
+import { PageSEO } from "@/components/PageSEO";
 
 const platforms = [
   { id: "all", label: "Todas" },
@@ -153,6 +154,11 @@ export default function HomePage() {
 
   return (
     <section className="space-y-8">
+      <PageSEO
+        title="Promoções de jogos em mídia física"
+        description="Encontre ofertas de jogos físicos para PlayStation, Nintendo e Xbox. Garimpe bons preços para aumentar sua coleção."
+        canonical="/"
+      />
       <div className="max-w-3xl space-y-2 sm:space-y-3">
         <div className="flex items-center gap-2">
           <span className="size-1.5 shrink-0 rounded-full bg-primary" aria-hidden="true" />

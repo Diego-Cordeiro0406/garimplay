@@ -16,6 +16,7 @@ import { calculateDiscount, formatPrice, PLATFORM_LABELS } from "@/lib/deals";
 import { dateFormatter, dateTimeFormatter } from "@/lib/formatters";
 import { useDeal } from "@/hooks/useDeals";
 import { useDealExpiration } from "@/hooks/useDealExpiration";
+import { PageSEO } from "@/components/PageSEO";
 
 export default function DealDetailsPage() {
   const { id } = useParams<{ id: string }>();
@@ -84,6 +85,14 @@ export default function DealDetailsPage() {
 
   return (
     <div className="space-y-8">
+      <PageSEO
+        title={`${deal.title} por ${formatPrice(deal.price)}`}
+        description={`Confira a oferta de ${deal.title} por ${formatPrice(deal.price)} na ${deal.store.name}. Veja as condições e a disponibilidade no Garimplay.`}
+        canonical={`/ofertas/${deal.id}`}
+        image={deal.imageUrl}
+        type="article"
+        noindex={isExpired}
+      />
       {/* Navegação */}
       <Button type="button" variant="ghost" onClick={() => navigate(-1)}>
         <ArrowLeft className="size-4" />
@@ -181,16 +190,21 @@ export default function DealDetailsPage() {
                 Oferta expirada
               </Button>
             ) : (
-              <Button size="lg" className="w-full">
-                <a
-                  className="flex items-center"
-                  href={deal.dealUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                >
-                  Ver oferta na {deal.store.name}
-                  <ArrowUpRight className="size-4 ml-1" />
-                </a>
+              <Button
+                nativeButton={false}
+                size="lg"
+                className="w-full"
+                render={
+                  <a
+                    className="flex items-center"
+                    href={deal.dealUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  ></a>
+                }
+              >
+                Ver oferta na {deal.store.name}
+                <ArrowUpRight className="size-4 ml-1" />
               </Button>
             )}
 
