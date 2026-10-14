@@ -59,6 +59,8 @@ export default defineConfig({
       workbox: {
         navigateFallback: "/index.html",
 
+        navigateFallbackDenylist: [/^\/sitemap\.xml$/, /^\/robots\.txt$/, /^\/llms\.txt$/],
+
         globPatterns: ["**/*.{js,css,html,ico,png,svg,woff2}"],
 
         cleanupOutdatedCaches: true,
