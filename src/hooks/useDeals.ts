@@ -9,6 +9,8 @@ export function usePublishedDeals() {
     queryKey: ["deals", "published"],
     queryFn: getPublishedDeals,
     staleTime: 1000 * 60 * 2,
+    refetchInterval: 1000 * 60 * 5,
+    refetchOnWindowFocus: true,
   });
 }
 

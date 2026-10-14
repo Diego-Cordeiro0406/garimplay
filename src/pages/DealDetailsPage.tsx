@@ -15,11 +15,13 @@ import { CouponCode } from "@/components/deals/CouponCode";
 import { calculateDiscount, formatPrice, PLATFORM_LABELS } from "@/lib/deals";
 import { dateFormatter, dateTimeFormatter } from "@/lib/formatters";
 import { useDeal } from "@/hooks/useDeals";
+import { useDealExpiration } from "@/hooks/useDealExpiration";
 
 export default function DealDetailsPage() {
   const { id } = useParams<{ id: string }>();
 
   const { data: deal, isPending, isError, refetch } = useDeal(id);
+  const isExpired = useDealExpiration(deal);
 
   if (isPending) {
     return (
@@ -77,8 +79,6 @@ export default function DealDetailsPage() {
   }
 
   const discount = calculateDiscount(deal.price, deal.originalPrice);
-
-  const isExpired = deal.status === "expired";
 
   const hasConditions = Boolean(deal.paymentConditions || deal.rules || deal.expiresAt);
 

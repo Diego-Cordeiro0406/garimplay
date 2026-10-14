@@ -67,7 +67,7 @@ function mapDeal(record: DealRecord): Deal {
 // Busca ofertas publicadas para o feed
 export async function getPublishedDeals(): Promise<Deal[]> {
   const { data, error } = await dealsQuery()
-    .eq("status", "published")
+    .in("status", ["published", "expired"])
     .order("created_at", { ascending: false })
     .limit(50);
 

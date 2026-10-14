@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 import { calculateDiscount, formatPrice, PLATFORM_LABELS } from "@/lib/deals";
 import type { Deal } from "@/types/deal";
+import { useDealExpiration } from "@/hooks/useDealExpiration";
 
 interface DealCardProps {
   deal: Deal;
@@ -12,7 +13,7 @@ interface DealCardProps {
 export function DealCard({ deal }: DealCardProps) {
   const discount = calculateDiscount(deal.price, deal.originalPrice);
 
-  const isExpired = deal.status === "expired";
+  const isExpired = useDealExpiration(deal);
 
   return (
     <article
