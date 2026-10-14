@@ -1,4 +1,4 @@
-import { Gamepad2, Search } from "lucide-react";
+import { Search } from "lucide-react";
 import type { ReactNode } from "react";
 import { Button } from "./ui/button";
 import { Link } from "react-router-dom";
@@ -17,22 +17,22 @@ export function MainLayout({ children }: MainLayoutProps) {
             className="flex shrink-0 items-center gap-2.5"
             aria-label="Garimplay - Página inicial"
           >
-            <div className="flex size-9 items-center justify-center rounded-md bg-primary text-primary-foreground">
-              <Gamepad2 className="size-5" />
-            </div>
-
-            <span className="text-lg font-semibold tracking-tight">
-              garim<span className="text-primary">play</span>
-            </span>
+            <img
+              src="/logos/garimplay-horizontal-color.svg"
+              alt="Garimplay"
+              width={175}
+              height={48}
+              className="h-12 w-43.75 object-contain"
+            />
           </Link>
 
-          <nav className="hidden items-center gap-6 md:flex">
+          {/* <nav className="hidden items-center gap-6 md:flex">
             <Link to="/" className="text-sm font-medium text-foreground">
               Ofertas
             </Link>
 
             <span className="text-sm text-muted-foreground">Mídias físicas</span>
-          </nav>
+          </nav> */}
 
           <Button variant="ghost" size="icon" aria-label="Pesquisar ofertas" disabled>
             <Search className="size-5" />

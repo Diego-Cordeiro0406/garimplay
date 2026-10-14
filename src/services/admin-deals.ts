@@ -1,7 +1,29 @@
-import type { QueryData } from "@supabase/supabase-js";
-
 import { supabase } from "@/integrations/supabase/client";
 import type { DealPlatform, DealStatus } from "@/types/deal";
+import type { Database } from "@/integrations/supabase/types";
+
+type DealRow = Database["public"]["Tables"]["deals"]["Row"];
+
+type AdminDealRecord = Pick<
+  DealRow,
+  | "id"
+  | "title"
+  | "price_cents"
+  | "original_price_cents"
+  | "status"
+  | "platform_id"
+  | "store_id"
+  | "created_at"
+> & {
+  store: {
+    id: string;
+    name: string;
+  };
+  platform: {
+    id: string;
+    name: string;
+  };
+};
 
 export const ADMIN_DEALS_PAGE_SIZE = 10;
 
@@ -23,10 +45,6 @@ const ADMIN_DEAL_SELECT = `
     name
   )
 ` as const;
-
-const adminDealsQuery = () => supabase.from("deals").select(ADMIN_DEAL_SELECT);
-
-type AdminDealRecord = QueryData<ReturnType<typeof adminDealsQuery>>[number];
 
 export type AdminDeal = {
   id: string;

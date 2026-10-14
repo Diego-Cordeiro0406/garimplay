@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   ExternalLink,
-  Gamepad2,
   LayoutDashboard,
   LoaderCircle,
   LogOut,
@@ -89,16 +88,16 @@ export function AdminLayout() {
   return (
     <div className="min-h-dvh bg-background text-foreground lg:flex">
       {/* Sidebar desktop */}
-      <aside className="hidden w-64 shrink-0 flex-col border-r border-border bg-card lg:flex">
+      <aside className="fixed inset-y-0 left-0 z-40 hidden w-64 flex-col border-r border-border bg-card lg:flex">
         <div className="flex h-17 items-center border-b border-border px-5">
           <Link to="/admin" className="flex items-center gap-3">
-            <div className="flex size-9 items-center justify-center rounded-md bg-primary text-primary-foreground">
-              <Gamepad2 className="size-5" />
-            </div>
-            <div className="leading-tight">
-              <p className="font-semibold">garimplay</p>
-              <p className="text-xs text-muted-foreground">Administração</p>
-            </div>
+            <img
+              src="/logos/garimplay-horizontal-color.svg"
+              alt="Garimplay"
+              width={175}
+              height={48}
+              className="h-12 w-43.75 object-contain"
+            />
           </Link>
         </div>
 
@@ -116,12 +115,11 @@ export function AdminLayout() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            <ExternalLink className="size-4 mr-1 mt-0.5" />
+            <ExternalLink className="size-4 mr-1" />
             Visualizar site
           </Link>
 
           <div>
-            {/* <p className="truncate px-3 pb-2 text-xs text-muted-foreground">{user?.email}</p> */}
             <Button
               variant="ghost"
               className="w-full justify-start"
@@ -140,7 +138,7 @@ export function AdminLayout() {
       </aside>
 
       {/* Conteúdo */}
-      <div className="flex min-w-0 flex-1 flex-col">
+      <div className="flex min-w-0 flex-1 flex-col lg:ml-64">
         <header className="sticky top-0 z-30 flex h-16 items-center justify-between gap-3 border-b border-border bg-background px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3">
             <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
@@ -153,8 +151,13 @@ export function AdminLayout() {
               <SheetContent side="left" className="w-72 p-0">
                 <SheetHeader className="border-b border-border px-5 py-5">
                   <SheetTitle className="flex items-center gap-2">
-                    <Gamepad2 className="size-5 text-primary" />
-                    Garimplay Admin
+                    <img
+                      src="/logos/garimplay-horizontal-color.svg"
+                      alt="Garimplay"
+                      width={175}
+                      height={48}
+                      className="h-12 w-43.75 object-contain"
+                    />
                   </SheetTitle>
                 </SheetHeader>
 
@@ -180,8 +183,6 @@ export function AdminLayout() {
                 </div>
               </SheetContent>
             </Sheet>
-
-            <span className="font-semibold lg:hidden">Garimplay Admin</span>
 
             <span className="hidden text-sm text-muted-foreground lg:inline">
               Painel administrativo

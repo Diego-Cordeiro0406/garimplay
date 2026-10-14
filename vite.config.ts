@@ -14,6 +14,9 @@ export default defineConfig({
 
       includeAssets: [
         "favicon.svg",
+        "favicon.ico",
+        "icons/apple-touch-icon.png",
+        "logos/garimplay-horizontal-color.svg",
         "icons/icon-192.png",
         "icons/icon-512.png",
         "icons/icon-maskable-512.png",
@@ -25,8 +28,8 @@ export default defineConfig({
         description:
           "Encontre promoções de jogos em mídia física nas principais lojas brasileiras.",
 
-        theme_color: "#18181b",
-        background_color: "#09090b",
+        theme_color: "#111315",
+        background_color: "#111315",
 
         display: "standalone",
         orientation: "portrait",

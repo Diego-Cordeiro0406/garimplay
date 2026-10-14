@@ -427,6 +427,7 @@ export function DealForm({ deal }: DealFormProps) {
 
           <div className="flex flex-col-reverse justify-end gap-3 sm:flex-row">
             <Button
+              nativeButton={false}
               type="button"
               variant="outline"
               disabled={saving}

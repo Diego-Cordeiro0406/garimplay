@@ -12,10 +12,10 @@ import LoginPage from "@/pages/LoginPage";
 import AdminDashboardPage from "@/pages/admin/AdminDashboardPage";
 import NotFoundPage from "@/pages/NotFoundPage";
 import { AdminLayout } from "./components/admin/AdminLayout";
-import AdminComingSoonPage from "./pages/admin/AdminComingSoonPage";
 import AdminDealsPage from "./pages/admin/AdminDealsPage";
 import AdminNewDealPage from "./pages/admin/AdminNewDealPage";
 import AdminEditDealPage from "./pages/admin/AdminEditDealPage";
+import AdminStoresPage from "./pages/admin/AdminStoresPage";
 
 function App() {
   const [queryClient] = useState(
@@ -70,15 +70,7 @@ function App() {
 
                 <Route path="ofertas/:id/editar" element={<AdminEditDealPage />} />
 
-                <Route
-                  path="lojas"
-                  element={
-                    <AdminComingSoonPage
-                      title="Lojas"
-                      description="Gerencie as lojas vinculadas às ofertas."
-                    />
-                  }
-                />
+                <Route path="lojas" element={<AdminStoresPage />} />
 
                 <Route path="*" element={<Navigate to="/admin" replace />} />
               </Route>
