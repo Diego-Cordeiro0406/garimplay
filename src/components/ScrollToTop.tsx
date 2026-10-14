@@ -13,7 +13,7 @@ export function ScrollToTop() {
         behavior: "instant",
       });
     }
-  }, [location.key, navigationType]);
+  }, [location.pathname, navigationType]);
 
   return null;
 }

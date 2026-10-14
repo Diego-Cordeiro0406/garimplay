@@ -194,10 +194,12 @@ export default function DealDetailsPage() {
               </Button>
             )}
 
-            <p className="text-center text-xs leading-relaxed text-muted-foreground">
-              Você será redirecionado para o site da loja. Preços e disponibilidade podem mudar sem
-              aviso prévio.
-            </p>
+            <div className="flex items-center justify-center">
+              <p className="text-center max-w-116 text-xs leading-relaxed text-muted-foreground">
+                Você será redirecionado para o site da loja. Preços e disponibilidade podem mudar
+                sem aviso prévio.
+              </p>
+            </div>
           </div>
         </div>
       </div>
