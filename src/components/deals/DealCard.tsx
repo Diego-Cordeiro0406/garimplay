@@ -1,10 +1,11 @@
 import { Eye, Gamepad2 } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import { Badge } from "@/components/ui/badge";
 import { calculateDiscount, formatPrice, PLATFORM_LABELS } from "@/lib/deals";
 import type { Deal } from "@/types/deal";
 import { useDealExpiration } from "@/hooks/useDealExpiration";
+import { saveHomeScroll } from "@/lib/scroll-restoration";
 
 interface DealCardProps {
   deal: Deal;
@@ -14,6 +15,14 @@ export function DealCard({ deal }: DealCardProps) {
   const discount = calculateDiscount(deal.price, deal.originalPrice);
 
   const isExpired = useDealExpiration(deal);
+
+  const location = useLocation();
+
+  function handleOpenDeal() {
+    if (location.pathname === "/") {
+      saveHomeScroll(location.key, window.scrollY);
+    }
+  }
 
   return (
     <article
@@ -157,6 +166,7 @@ export function DealCard({ deal }: DealCardProps) {
 
             <Link
               to={`/ofertas/${deal.id}`}
+              onClick={handleOpenDeal}
               className="
                 inline-flex h-9 w-full items-center justify-center
                 gap-2 rounded-md bg-primary px-3

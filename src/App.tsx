@@ -16,6 +16,7 @@ import AdminDealsPage from "./pages/admin/AdminDealsPage";
 import AdminNewDealPage from "./pages/admin/AdminNewDealPage";
 import AdminEditDealPage from "./pages/admin/AdminEditDealPage";
 import AdminStoresPage from "./pages/admin/AdminStoresPage";
+import { ScrollToTop } from "./components/ScrollToTop";
 
 function App() {
   const [queryClient] = useState(
@@ -35,6 +36,7 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
         <BrowserRouter>
+          <ScrollToTop />
           <Routes>
             {/* Rotas públicas */}
             <Route

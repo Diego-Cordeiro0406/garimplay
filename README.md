@@ -4,8 +4,6 @@
 
 O **Garimplay** é uma plataforma de curadoria de promoções de **jogos em mídia física**. A proposta é reunir ofertas de diferentes lojas em um só lugar, facilitando a descoberta de bons preços para quem gosta de jogar e colecionar.
 
-> **Status:** projeto em desenvolvimento. O catálogo público e as páginas de detalhes já consultam o Supabase; o painel administrativo ainda não foi implementado.
-
 ## Funcionalidades
 
 - **Catálogo de ofertas:** exibição das promoções publicadas, ordenadas pelas mais recentes.

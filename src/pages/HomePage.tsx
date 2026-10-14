@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { DealCard } from "@/components/deals/DealCard";
 import { usePublishedDeals } from "@/hooks/useDeals";
+import { useHomeScrollRestoration } from "@/hooks/useHomeScrollRestoration";
 
 const platforms = [
   { id: "all", label: "Todas" },
@@ -17,7 +18,11 @@ const platforms = [
 type Platform = (typeof platforms)[number]["id"];
 
 export default function HomePage() {
-  const { data: deals = [], isPending, isError, refetch } = usePublishedDeals();
+  const { data: deals = [], isPending, isError, refetch, isSuccess } = usePublishedDeals();
+
+  const isReady = isSuccess;
+
+  useHomeScrollRestoration(isReady);
 
   const [selectedPlatform, setSelectedPlatform] = useState<Platform>("all");
 

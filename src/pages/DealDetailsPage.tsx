@@ -7,7 +7,7 @@ import {
   Store,
   Wallet,
 } from "lucide-react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,8 @@ export default function DealDetailsPage() {
 
   const { data: deal, isPending, isError, refetch } = useDeal(id);
   const isExpired = useDealExpiration(deal);
+
+  const navigate = useNavigate();
 
   if (isPending) {
     return (
@@ -83,13 +85,10 @@ export default function DealDetailsPage() {
   return (
     <div className="space-y-8">
       {/* Navegação */}
-      <Link
-        to="/"
-        className="inline-flex items-center gap-2 text-sm text-muted-foreground transition-colors hover:text-foreground"
-      >
+      <Button type="button" variant="ghost" onClick={() => navigate(-1)}>
         <ArrowLeft className="size-4" />
         Voltar para ofertas
-      </Link>
+      </Button>
 
       {/* Conteúdo principal */}
       <div className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12">
