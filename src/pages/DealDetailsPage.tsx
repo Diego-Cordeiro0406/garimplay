@@ -17,14 +17,45 @@ import { dateFormatter, dateTimeFormatter } from "@/lib/formatters";
 import { useDeal } from "@/hooks/useDeals";
 import { useDealExpiration } from "@/hooks/useDealExpiration";
 import { PageSEO } from "@/components/PageSEO";
+import { trackDealClick, trackDealView } from "@/lib/analytics";
+import { useEffect, useRef } from "react";
 
 export default function DealDetailsPage() {
   const { id } = useParams<{ id: string }>();
+  const lastTrackedDealId = useRef<string | null>(null);
 
   const { data: deal, isPending, isError, refetch } = useDeal(id);
   const isExpired = useDealExpiration(deal);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!deal) return;
+
+    const trackView = () => {
+      if (lastTrackedDealId.current === deal.id) return;
+
+      const tracked = trackDealView({
+        id: deal.id,
+        title: deal.title,
+        store: deal.store.name,
+        platform: deal.platform,
+        price: deal.price,
+      });
+
+      if (tracked) {
+        lastTrackedDealId.current = deal.id;
+      }
+    };
+
+    trackView();
+
+    window.addEventListener("analytics-consent-granted", trackView);
+
+    return () => {
+      window.removeEventListener("analytics-consent-granted", trackView);
+    };
+  }, [deal]);
 
   if (isPending) {
     return (
@@ -194,6 +225,13 @@ export default function DealDetailsPage() {
                 nativeButton={false}
                 size="lg"
                 className="w-full"
+                onClick={() => {
+                  trackDealClick({
+                    id: deal.id,
+                    store: deal.store.name,
+                    platform: deal.platform,
+                  });
+                }}
                 render={
                   <a
                     className="flex items-center"

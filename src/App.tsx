@@ -17,6 +17,8 @@ import AdminNewDealPage from "./pages/admin/AdminNewDealPage";
 import AdminEditDealPage from "./pages/admin/AdminEditDealPage";
 import AdminStoresPage from "./pages/admin/AdminStoresPage";
 import { ScrollToTop } from "./components/ScrollToTop";
+import { CookieConsentBanner } from "./components/CookieConsentBanner";
+import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
 
 function App() {
   const [queryClient] = useState(
@@ -57,6 +59,15 @@ function App() {
               }
             />
 
+            <Route
+              path="/privacidade"
+              element={
+                <MainLayout>
+                  <PrivacyPolicyPage />
+                </MainLayout>
+              }
+            />
+
             {/* Login administrativo */}
             <Route path="/admin/login" element={<LoginPage />} />
 
@@ -81,6 +92,7 @@ function App() {
             {/* Página não encontrada */}
             <Route path="*" element={<NotFoundPage />} />
           </Routes>
+          <CookieConsentBanner />
         </BrowserRouter>
       </AuthProvider>
     </QueryClientProvider>

@@ -49,25 +49,48 @@ export function MainLayout({ children }: MainLayoutProps) {
 
       <footer className="border-t border-border">
         <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-          <div className="space-y-2">
-            <p className="text-xs font-medium text-foreground">Sobre as ofertas</p>
+          <div className="space-y-3">
+            <h2 className="text-xs font-medium text-foreground">Sobre as ofertas</h2>
 
-            <p className="max-w-116 text-xs leading-relaxed text-muted-foreground">
+            <p className="max-w-2xl text-xs leading-relaxed text-muted-foreground">
               O Garimplay é uma plataforma independente de divulgação de ofertas de jogos. Não
               vendemos produtos nem processamos pagamentos. As compras são realizadas diretamente
               nos sites das lojas, que são responsáveis pelos pedidos, entregas e atendimento ao
               consumidor.
             </p>
 
-            <p className="max-w-3xl text-xs leading-relaxed text-muted-foreground">
+            <p className="max-w-2xl text-xs leading-relaxed text-muted-foreground">
               Não possuímos vínculo comercial ou parceria oficial com as lojas divulgadas.
             </p>
           </div>
 
-          <Separator className="my-6" />
+          <nav
+            aria-label="Links institucionais"
+            className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2"
+          >
+            <Link
+              to="/privacidade"
+              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Política de Privacidade
+            </Link>
+
+            <button
+              type="button"
+              onClick={() => {
+                window.dispatchEvent(new Event("open-cookie-preferences"));
+              }}
+              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Preferências de cookies
+            </button>
+          </nav>
+
+          <Separator className="my-5" />
 
           <div className="flex flex-col gap-2 text-xs text-muted-foreground sm:flex-row sm:items-center sm:justify-between">
             <span>© {new Date().getFullYear()} Garimplay</span>
+
             <span>Feito para quem gosta de colecionar jogos.</span>
           </div>
         </div>
