@@ -12,6 +12,7 @@ const DEAL_SELECT = `
   original_price_cents,
   deal_url,
   coupon_code,
+  coupon_url,
   payment_conditions,
   rules,
   status,
@@ -56,6 +57,7 @@ function mapDeal(record: DealRecord): Deal {
     status: record.status as DealStatus,
 
     couponCode: record.coupon_code,
+    couponUrl: record.coupon_url,
     paymentConditions: record.payment_conditions,
     rules: record.rules,
     expiresAt: record.expires_at,

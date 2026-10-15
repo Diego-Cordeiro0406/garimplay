@@ -193,9 +193,9 @@ export default function DealDetailsPage() {
           </div>
 
           {/* Cupom */}
-          {deal.couponCode && (
+          {(deal.couponCode || deal.couponUrl) && (
             <div className="mt-8 border-t border-border pt-6">
-              <CouponCode code={deal.couponCode} />
+              <CouponCode code={deal.couponCode} url={deal.couponUrl} />
             </div>
           )}
 

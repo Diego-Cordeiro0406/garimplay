@@ -11,6 +11,7 @@ export type Database = {
       deals: {
         Row: {
           coupon_code: string | null;
+          coupon_url: string | null;
           created_at: string;
           created_by: string | null;
           deal_url: string;
@@ -30,6 +31,7 @@ export type Database = {
         };
         Insert: {
           coupon_code?: string | null;
+          coupon_url?: string | null;
           created_at?: string;
           created_by?: string | null;
           deal_url: string;
@@ -49,6 +51,7 @@ export type Database = {
         };
         Update: {
           coupon_code?: string | null;
+          coupon_url?: string | null;
           created_at?: string;
           created_by?: string | null;
           deal_url?: string;
@@ -148,6 +151,7 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      expire_deals: { Args: never; Returns: number };
       is_admin: { Args: never; Returns: boolean };
     };
     Enums: {

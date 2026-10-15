@@ -58,6 +58,7 @@ export const dealFormSchema = z
       .refine((value) => value.startsWith("https://"), "O link deve utilizar HTTPS."),
 
     couponCode: optionalText(100),
+    couponUrl: optionalUrl,
     paymentConditions: optionalText(1000),
     rules: optionalText(3000),
 
@@ -79,6 +80,14 @@ export const dealFormSchema = z
         code: "custom",
         path: ["originalPrice"],
         message: "O preço original deve ser maior que o preço atual.",
+      });
+    }
+
+    if (values.couponCode.trim() && values.couponUrl.trim()) {
+      context.addIssue({
+        code: "custom",
+        path: ["couponUrl"],
+        message: "Informe um código ou um link de resgate, não ambos.",
       });
     }
 
@@ -107,6 +116,7 @@ export const defaultDealFormValues: DealFormValues = {
   originalPrice: "",
   dealUrl: "",
   couponCode: "",
+  couponUrl: "",
   paymentConditions: "",
   rules: "",
   expiresAt: "",

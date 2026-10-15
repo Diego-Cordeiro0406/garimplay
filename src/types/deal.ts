@@ -25,6 +25,7 @@ export interface Deal {
 
   // Informações adicionais da promoção
   couponCode?: string | null;
+  couponUrl?: string | null;
   paymentConditions?: string | null;
   rules?: string | null;
   expiresAt?: string | null;

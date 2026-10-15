@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Controller, useForm, type FieldErrors } from "react-hook-form";
+import { Controller, useForm, useWatch, type FieldErrors } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Link, useNavigate } from "react-router-dom";
 import { ArrowLeft, CalendarClock, Gamepad2, LoaderCircle, Save, Tag } from "lucide-react";
@@ -22,6 +22,8 @@ import type { Database } from "@/integrations/supabase/types";
 
 import { centsToInput, toLocalDateTime } from "@/lib/formatters";
 import { DealImageUpload } from "./DealImageUpload";
+import type { ExtractedProduct } from "@/services/productMetadata";
+import { ProductMetadataSearch } from "./ProductMetadataSearch";
 
 type DealRecord = Database["public"]["Tables"]["deals"]["Row"];
 
@@ -40,6 +42,7 @@ function mapDealToForm(deal: DealRecord): DealFormValues {
     originalPrice: centsToInput(deal.original_price_cents),
     dealUrl: deal.deal_url,
     couponCode: deal.coupon_code ?? "",
+    couponUrl: deal.coupon_url ?? "",
     paymentConditions: deal.payment_conditions ?? "",
     rules: deal.rules ?? "",
     expiresAt: toLocalDateTime(deal.expires_at),
@@ -100,6 +103,7 @@ export function DealForm({ deal }: DealFormProps) {
     handleSubmit,
     reset,
     getValues,
+    setValue,
     formState: { errors, isDirty, isSubmitting },
   } = useForm<DealFormValues>({
     resolver: zodResolver(dealFormSchema),
@@ -107,11 +111,55 @@ export function DealForm({ deal }: DealFormProps) {
     mode: "onBlur",
   });
 
+  const couponUrl = useWatch({
+    control,
+    name: "couponUrl",
+  });
+
   useEffect(() => {
     if (deal) {
       reset(mapDealToForm(deal));
     }
   }, [deal, reset]);
+
+  function handleMetadataSuccess(metadata: ExtractedProduct) {
+    const fillIfEmpty = (field: keyof DealFormValues, value: string | null) => {
+      if (!value || getValues(field)) return;
+
+      setValue(field, value, {
+        shouldDirty: true,
+        shouldValidate: true,
+      });
+    };
+
+    fillIfEmpty("title", metadata.title);
+    fillIfEmpty("dealUrl", metadata.url);
+
+    // Loja
+    const storeNames: Record<ExtractedProduct["store"], string> = {
+      amazon: "amazon",
+      mercadolivre: "mercado livre",
+      kabum: "kabum",
+      shopee: "shopee",
+    };
+
+    const store = optionsQuery.data?.stores.find((option) =>
+      option.name.toLowerCase().includes(storeNames[metadata.store])
+    );
+
+    fillIfEmpty("storeId", store?.id ?? null);
+
+    // Plataforma
+    if (metadata.platform) {
+      const platform = optionsQuery.data?.platforms.find(
+        (option) => option.name.toLowerCase() === metadata.platform?.toLowerCase()
+      );
+
+      fillIfEmpty("platformId", platform?.id ?? null);
+    }
+
+    // Preços permanecem para preenchimento manual.
+  }
 
   async function onSubmit(values: DealFormValues) {
     try {
@@ -177,6 +225,9 @@ export function DealForm({ deal }: DealFormProps) {
           noValidate
           className="w-full min-w-0 space-y-6"
         >
+          {!isEditing && (
+            <ProductMetadataSearch onSuccess={handleMetadataSuccess} disabled={saving} />
+          )}
           <FormSection
             icon={Gamepad2}
             title="Informações do jogo"
@@ -328,10 +379,46 @@ export function DealForm({ deal }: DealFormProps) {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="couponCode">Código do cupom</Label>
-              <Input id="couponCode" placeholder="Ex.: GAME20" {...register("couponCode")} />
-              <FieldError message={errors.couponCode?.message} />
+              <Label htmlFor="couponUrl">Link para resgatar cupom</Label>
+
+              <Input
+                id="couponUrl"
+                type="url"
+                placeholder="https://shopee.com.br/m/cupom-de-desconto"
+                aria-invalid={Boolean(errors.couponUrl)}
+                {...register("couponUrl", {
+                  onChange: (event) => {
+                    if (event.target.value.trim()) {
+                      setValue("couponCode", "", {
+                        shouldDirty: true,
+                        shouldValidate: true,
+                      });
+                    }
+                  },
+                })}
+              />
+
+              <FieldError message={errors.couponUrl?.message} />
+
+              <p className="text-xs text-muted-foreground">
+                Informe a página onde o cliente poderá resgatar o cupom.
+              </p>
             </div>
+
+            {!couponUrl?.trim() && (
+              <div className="space-y-2">
+                <Label htmlFor="couponCode">Código do cupom</Label>
+
+                <Input
+                  id="couponCode"
+                  placeholder="Ex.: GAME20"
+                  aria-invalid={Boolean(errors.couponCode)}
+                  {...register("couponCode")}
+                />
+
+                <FieldError message={errors.couponCode?.message} />
+              </div>
+            )}
 
             <div className="space-y-2">
               <Label htmlFor="paymentConditions">Condições de pagamento</Label>

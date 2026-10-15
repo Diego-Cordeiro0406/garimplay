@@ -53,7 +53,9 @@ function toPayload(values: DealFormValues): DealInsert {
     price_cents: priceCents,
     original_price_cents: originalPriceCents,
     deal_url: values.dealUrl.trim(),
-    coupon_code: nullable(values.couponCode),
+    coupon_code: values.couponUrl.trim() ? null : nullable(values.couponCode),
+
+    coupon_url: nullable(values.couponUrl),
     payment_conditions: nullable(values.paymentConditions),
     rules: nullable(values.rules),
     expires_at: values.expiresAt ? new Date(values.expiresAt).toISOString() : null,
