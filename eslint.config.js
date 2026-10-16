@@ -9,7 +9,7 @@ import prettierConfig from "eslint-config-prettier";
 
 export default defineConfig([
   // Ignorar pastas
-  { ignores: ["dist", "src/components/ui/**"] },
+  { ignores: ["dist", "src/components/ui/**", "tests/**", "/collector/**"] },
 
   // Extensões de regras
   js.configs.recommended,

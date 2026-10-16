@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { Button } from "@/components/ui/button";
-import { getImports, importSource, reviewImport } from "@/services/admin-imports";
+import { getImports, importSource, reviewImport, verifyImport } from "@/services/admin-imports";
 import type { ImportStatus } from "@/types/imported-offer";
 
 const statuses = {
@@ -10,6 +10,12 @@ const statuses = {
   discarded: "Descartadas",
   imported: "Convertidas",
 } as const;
+const verificationLabels: Record<string, string> = {
+  boxed_code_in_store: "Código em caixa declarado na loja",
+  physical_explicit_in_store: "Mídia física declarada na loja",
+  physical_packaging_in_store: "Embalagem física declarada na loja",
+  excluded_digital_without_packaging: "A loja indica conteúdo digital sem embalagem",
+};
 const formats: Record<string, string> = {
   physical_confirmed: "Física indicada no título",
   physical_likely: "Provável embalagem física",
@@ -28,6 +34,13 @@ export default function AdminImportsPage() {
       reviewImport(id, next),
     onSuccess: async () => {
       await client.invalidateQueries({ queryKey: ["admin", "imports"] });
+    },
+  });
+  const verification = useMutation({
+    mutationFn: verifyImport,
+    onSuccess: async () => {
+      await client.invalidateQueries({ queryKey: ["admin", "imports"] });
+      await client.invalidateQueries({ queryKey: ["admin", "import"] });
     },
   });
   return (
@@ -52,6 +65,9 @@ export default function AdminImportsPage() {
           </Button>
         ))}
       </div>
+      <Button variant="outline" disabled={query.isFetching} onClick={() => void query.refetch()}>
+        Atualizar importações
+      </Button>
       {query.isPending && <p>Carregando importações...</p>}
       {query.isError && (
         <div role="alert">
@@ -64,6 +80,17 @@ export default function AdminImportsPage() {
       {review.isError && (
         <p role="alert" className="text-destructive">
           Não foi possível atualizar a revisão.
+        </p>
+      )}
+      {verification.isError && (
+        <p role="alert" className="text-destructive">
+          {verification.error.message}
+        </p>
+      )}
+      {verification.isSuccess && (
+        <p role="status" className="text-sm text-muted-foreground">
+          Consulta concluída. Confira as evidências e limitações da oferta; o resultado pode
+          permanecer sem confirmação.
         </p>
       )}
       {query.data?.rows.length === 0 && (
@@ -87,11 +114,8 @@ export default function AdminImportsPage() {
               </p>
               <p className="text-sm text-muted-foreground">
                 {formats[offer.physical_media] ?? "Formato para revisão"} ·{" "}
-                {offer.verification?.result === "boxed_code_in_store"
-                  ? "Código em caixa declarado na loja"
-                  : offer.verification?.result === "physical_explicit_in_store"
-                    ? "Mídia física declarada na loja"
-                    : "Confira o formato na loja"}
+                {verificationLabels[offer.verification?.result ?? ""] ??
+                  "Confira o formato na loja"}
               </p>
               <p className="text-xs text-muted-foreground">
                 Coletada em {new Date(row.source_collected_at).toLocaleString("pt-BR")} ·{" "}
@@ -132,9 +156,26 @@ export default function AdminImportsPage() {
                     <span>Oferta criada foi removida.</span>
                   ))}
               </div>
+              {row.review_status === "pending" && offer.product_url && (
+                <Button
+                  variant="outline"
+                  disabled={verification.isPending}
+                  onClick={() => verification.mutate(row.id)}
+                >
+                  {verification.isPending && verification.variables === row.id
+                    ? "Verificando..."
+                    : "Verificar formato na loja"}
+                </Button>
+              )}
               {offer.verification && (
                 <details className="text-sm">
                   <summary className="cursor-pointer">Evidências e limitações</summary>
+                  {Number.isFinite(Date.parse(offer.verification.checked_at)) && (
+                    <p className="mt-2 text-xs text-muted-foreground">
+                      Consulta de {new Date(offer.verification.checked_at).toLocaleString("pt-BR")}.
+                      Preço e disponibilidade continuam sujeitos à conferência.
+                    </p>
+                  )}
                   {offer.verification.evidence.map((e, i) => (
                     <p key={i} className="mt-2">
                       {e.excerpt}

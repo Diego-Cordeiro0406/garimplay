@@ -37,3 +37,14 @@ entrypoint = "./functions/extract-product-metadata/index.ts"
 enabled = true
 verify_jwt = false
 entrypoint = "./functions/ingest-offers/index.ts"
+
+[functions.collect-pelando]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/collect-pelando/index.ts"
+
+# Autenticação e permissão de admin validadas no código.
+[functions.verify-imported-offer]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/verify-imported-offer/index.ts"

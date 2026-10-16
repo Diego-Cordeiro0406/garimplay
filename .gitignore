@@ -31,3 +31,9 @@ supabase/.temp/
 supabase/.branches/
 supabase/snippets/
 supabase/backups/
+
+# Configuração privada e estado local do coletor
+collector/.garimplay/
+collector/entregas.sqlite*
+collector/historico-buscas.json
+collector/__pycache__/

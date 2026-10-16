@@ -1,4 +1,3 @@
-import type { ImportedOffer } from "@/types/imported-offer";
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Database = {
@@ -9,7 +8,72 @@ export type Database = {
   };
   public: {
     Tables: {
-      imported_offers: { Row: ImportedOffer; Insert: never; Update: never; Relationships: [] };
+      collector_control: {
+        Row: {
+          cursors: Json;
+          enabled: boolean;
+          id: string;
+          last_finished_at: string | null;
+          lease_token: string | null;
+          lease_until: string | null;
+          visitor_id: string;
+        };
+        Insert: {
+          cursors?: Json;
+          enabled?: boolean;
+          id: string;
+          last_finished_at?: string | null;
+          lease_token?: string | null;
+          lease_until?: string | null;
+          visitor_id?: string;
+        };
+        Update: {
+          cursors?: Json;
+          enabled?: boolean;
+          id?: string;
+          last_finished_at?: string | null;
+          lease_token?: string | null;
+          lease_until?: string | null;
+          visitor_id?: string;
+        };
+        Relationships: [];
+      };
+      collector_runs: {
+        Row: {
+          finished_at: string;
+          id: string;
+          started_at: string;
+          summary: Json;
+        };
+        Insert: {
+          finished_at?: string;
+          id: string;
+          started_at: string;
+          summary: Json;
+        };
+        Update: {
+          finished_at?: string;
+          id?: string;
+          started_at?: string;
+          summary?: Json;
+        };
+        Relationships: [];
+      };
+      collector_seen_nonces: {
+        Row: {
+          expires_at: string;
+          nonce: string;
+        };
+        Insert: {
+          expires_at: string;
+          nonce: string;
+        };
+        Update: {
+          expires_at?: string;
+          nonce?: string;
+        };
+        Relationships: [];
+      };
       deals: {
         Row: {
           coupon_code: string | null;
@@ -88,6 +152,80 @@ export type Database = {
           },
         ];
       };
+      imported_offers: {
+        Row: {
+          deal_id: string | null;
+          external_id: string;
+          id: string;
+          received_at: string;
+          review_status: string;
+          reviewed_at: string | null;
+          reviewed_by: string | null;
+          source: string;
+          source_collected_at: string;
+          source_data: Json;
+          updated_at: string;
+        };
+        Insert: {
+          deal_id?: string | null;
+          external_id: string;
+          id?: string;
+          received_at?: string;
+          review_status?: string;
+          reviewed_at?: string | null;
+          reviewed_by?: string | null;
+          source: string;
+          source_collected_at: string;
+          source_data: Json;
+          updated_at?: string;
+        };
+        Update: {
+          deal_id?: string | null;
+          external_id?: string;
+          id?: string;
+          received_at?: string;
+          review_status?: string;
+          reviewed_at?: string | null;
+          reviewed_by?: string | null;
+          source?: string;
+          source_collected_at?: string;
+          source_data?: Json;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: "imported_offers_deal_id_fkey";
+            columns: ["deal_id"];
+            isOneToOne: false;
+            referencedRelation: "deals";
+            referencedColumns: ["id"];
+          },
+        ];
+      };
+      offer_verification_cache: {
+        Row: {
+          expires_at: string | null;
+          lease_token: string | null;
+          lease_until: string | null;
+          product_url: string;
+          result: Json | null;
+        };
+        Insert: {
+          expires_at?: string | null;
+          lease_token?: string | null;
+          lease_until?: string | null;
+          product_url: string;
+          result?: Json | null;
+        };
+        Update: {
+          expires_at?: string | null;
+          lease_token?: string | null;
+          lease_until?: string | null;
+          product_url?: string;
+          result?: Json | null;
+        };
+        Relationships: [];
+      };
       platforms: {
         Row: {
           created_at: string;
@@ -153,10 +291,38 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
-      review_imported_offer: { Args: { p_id: string; p_status: string }; Returns: undefined };
-      convert_imported_offer: { Args: { p_id: string; p_values: Json }; Returns: string };
+      attach_offer_verification: {
+        Args: { p_expected_url: string; p_id: string; p_result: Json };
+        Returns: boolean;
+      };
+      claim_offer_verification: { Args: { p_url: string }; Returns: Json };
+      claim_pelando_collection: { Args: { p_nonce: string }; Returns: Json };
+      complete_offer_verification: {
+        Args: { p_result: Json; p_token: string; p_url: string };
+        Returns: undefined;
+      };
+      convert_imported_offer: {
+        Args: { p_id: string; p_values: Json };
+        Returns: string;
+      };
+      dispatch_pelando_collection: { Args: never; Returns: number };
       expire_deals: { Args: never; Returns: number };
+      finish_pelando_collection: {
+        Args: {
+          p_cursors: Json;
+          p_offers: Json;
+          p_summary: Json;
+          p_token: string;
+        };
+        Returns: Json;
+      };
+      import_content_fingerprint: { Args: { p_data: Json }; Returns: string };
+      ingest_imported_offers: { Args: { p_offers: Json }; Returns: Json };
       is_admin: { Args: never; Returns: boolean };
+      review_imported_offer: {
+        Args: { p_id: string; p_status: string };
+        Returns: undefined;
+      };
     };
     Enums: {
       [_ in never]: never;

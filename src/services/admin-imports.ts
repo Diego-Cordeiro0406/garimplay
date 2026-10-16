@@ -24,6 +24,7 @@ const sourceSchema = z.object({
   verification: z
     .object({
       result: z.string().catch("unverified"),
+      checked_at: z.string().catch(""),
       evidence: z
         .array(z.object({ excerpt: z.string(), section: z.string().optional() }))
         .catch([]),
@@ -56,4 +57,14 @@ export async function getImport(id: string) {
 export async function reviewImport(id: string, status: "pending" | "discarded") {
   const { error } = await supabase.rpc("review_imported_offer", { p_id: id, p_status: status });
   if (error) throw error;
+}
+
+export async function verifyImport(id: string) {
+  const { data, error } = await supabase.functions.invoke<{ error?: string; cached?: boolean }>(
+    "verify-imported-offer",
+    { body: { id } }
+  );
+  if (error || data?.error)
+    throw new Error(data?.error ?? "Não foi possível verificar agora. Tente novamente mais tarde.");
+  return data;
 }
