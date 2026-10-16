@@ -162,14 +162,14 @@ export default function DealDetailsPage() {
             >
               <span
                 className="
-          absolute right-[-38px] top-[25px]
-          w-[160px] rotate-45
+          absolute -right-9.5 top-6.25
+          w-40 rotate-45
           bg-amber-600 py-1.5
           text-center text-[10px]
           font-bold uppercase tracking-wider
           text-white shadow-md
-          sm:right-[-45px] sm:top-[32px]
-          sm:w-[200px] sm:py-2 sm:text-xs
+          sm:-right-11.25 sm:top-8
+          sm:w-50 sm:py-2 sm:text-xs
         "
               >
                 Pré-venda
