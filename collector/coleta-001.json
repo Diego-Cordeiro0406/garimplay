@@ -1,0 +1,411 @@
+{
+  "schema_version": 3,
+  "source": "pelando_search",
+  "collected_at": "2026-10-16T13:57:38.903087+00:00",
+  "window": {
+    "hours": 24,
+    "start_inclusive": "2026-10-15T13:57:38.903087+00:00",
+    "end_inclusive": "2026-10-16T13:57:38.903087+00:00",
+    "field": "firstApprovedAt"
+  },
+  "search_settings": {
+    "sortOption": "createdAt",
+    "hideExpired": true
+  },
+  "searches": [
+    {
+      "query": "jogo PS5",
+      "pages_fetched": 2,
+      "rows_received": 23,
+      "stop_reason": "exhausted",
+      "potentially_incomplete": false
+    },
+    {
+      "query": "jogo PS4",
+      "pages_fetched": 1,
+      "rows_received": 10,
+      "stop_reason": "exhausted",
+      "potentially_incomplete": false
+    },
+    {
+      "query": "jogo Switch",
+      "pages_fetched": 1,
+      "rows_received": 15,
+      "stop_reason": "exhausted",
+      "potentially_incomplete": false
+    },
+    {
+      "query": "jogo Xbox",
+      "pages_fetched": 2,
+      "rows_received": 22,
+      "stop_reason": "exhausted",
+      "potentially_incomplete": false
+    },
+    {
+      "query": "mídia física",
+      "pages_fetched": 2,
+      "rows_received": 24,
+      "stop_reason": "exhausted",
+      "potentially_incomplete": false
+    }
+  ],
+  "coverage_warning": "Limite por busca pode deixar resultados de fora. Não se interrompe por data: ordenação createdAt e corte firstApprovedAt são campos distintos.",
+  "summary": {
+    "rows_received": 94,
+    "unique_ids_received": 77,
+    "duplicate_occurrences": 17,
+    "active_in_window": 4,
+    "discarded": {
+      "older_than_window": 73
+    },
+    "changes": {
+      "new": 4
+    },
+    "physical_media": {
+      "physical_likely": 1,
+      "physical_confirmed": 3
+    },
+    "selected_for_review": 4,
+    "searches_at_page_limit": 0
+  },
+  "candidates_for_review": [
+    {
+      "source": "pelando",
+      "external_id": "b040ca2d-2e99-4e1d-ad67-49fbc8ab459e",
+      "title": "Street Fighter 30th Anniversary Collection - PS4",
+      "price_cents": 1873,
+      "currency": "BRL",
+      "source_url": "https://www.pelando.com.br/d/street-fighter-30th-anniversary-collection-ps4-8808",
+      "product_url": "https://store.playstation.com/pt-br/product/UP0102-CUSA07828_00-SF30FULLGAME0001",
+      "image_url": "https://media.pelando.com.br/kmIPss3fu4xcXuPGZepoDQ6e7co=/0x100/filters:format(webp)/d/scp-mzbr7-1792153781030.jpg",
+      "store": {
+        "id": "428",
+        "name": "Playstation Store",
+        "slug": "store.playstation.com",
+        "logo": "s/0060ab88-9fde-422c-bdfe-8430a7ac7e2e.png",
+        "linkingEnabled": true,
+        "pageEnabled": false
+      },
+      "source_status": "active",
+      "kind": "promotion",
+      "approved_at": "2026-10-16T12:31:00.867Z",
+      "classification": "gaming",
+      "platform_suggestions": [
+        "ps4"
+      ],
+      "review_notes": [
+        "Plataforma mencionada no título; confirmar compatibilidade."
+      ],
+      "physical_media": "physical_likely",
+      "physical_media_reasons": [
+        "Plataforma e link de produto, sem sinais digitais; confirmar formato na loja."
+      ],
+      "change": "new",
+      "found_by_queries": [
+        "jogo PS4"
+      ],
+      "collected_at": "2026-10-16T13:57:38.903087+00:00",
+      "store_verification": {
+        "result": "pending",
+        "reason": "Execute verificar_midia.py; falha de acesso mantém revisão pendente."
+      }
+    },
+    {
+      "source": "pelando",
+      "external_id": "55603f75-4e09-4adf-a066-2053ee6d04a6",
+      "title": "Jogo Star Wars Zero Company - PS5 - Mídia Física",
+      "price_cents": 23200,
+      "currency": "BRL",
+      "source_url": "https://www.pelando.com.br/d/jogo-star-wars-zero-company-ps5-midia-fisica-62da",
+      "product_url": "https://www.amazon.com.br/dp/B0H8ZLZF3W",
+      "image_url": "https://media.pelando.com.br/29JrAgU1uZz7OdxxfB_PuZlp4tA=/0x100/filters:format(webp)/d/scp-0x0xh-1792086219235.jpg",
+      "store": {
+        "id": "367",
+        "name": "Amazon",
+        "slug": "amazon",
+        "logo": "/s/amazon-1776453307003.png",
+        "linkingEnabled": true,
+        "pageEnabled": true
+      },
+      "source_status": "active",
+      "kind": "promotion",
+      "approved_at": "2026-10-15T17:44:32.650Z",
+      "classification": "gaming",
+      "platform_suggestions": [
+        "ps5"
+      ],
+      "review_notes": [
+        "Plataforma mencionada no título; confirmar compatibilidade."
+      ],
+      "physical_media": "physical_confirmed",
+      "physical_media_reasons": [
+        "Indicação explícita de mídia física no título; não verificada na loja."
+      ],
+      "change": "new",
+      "found_by_queries": [
+        "jogo PS5",
+        "mídia física"
+      ],
+      "collected_at": "2026-10-16T13:57:38.903087+00:00",
+      "store_verification": {
+        "result": "pending",
+        "reason": "Execute verificar_midia.py; falha de acesso mantém revisão pendente."
+      }
+    },
+    {
+      "source": "pelando",
+      "external_id": "6cb45f5e-a19c-4275-8d90-1e000ea0608e",
+      "title": "Jogo Cronos The New Dawn - Nintendo Switch 2 - Mídia Física",
+      "price_cents": 16087,
+      "currency": "BRL",
+      "source_url": "https://www.pelando.com.br/d/jogo-cronos-the-new-dawn-nintendo-switch-2-midia-fisica-a855",
+      "product_url": "https://www.amazon.com.br/dp/B0FKVWSM3N",
+      "image_url": "https://media.pelando.com.br/dVl9CExyrk0RCup8dpUyPEOa4MU=/0x100/filters:format(webp)/d/scp-l90c9f-1792085082613.jpg",
+      "store": {
+        "id": "367",
+        "name": "Amazon",
+        "slug": "amazon",
+        "logo": "/s/amazon-1776453307003.png",
+        "linkingEnabled": true,
+        "pageEnabled": true
+      },
+      "source_status": "active",
+      "kind": "promotion",
+      "approved_at": "2026-10-15T17:26:32.066Z",
+      "classification": "gaming",
+      "platform_suggestions": [
+        "switch-2"
+      ],
+      "review_notes": [
+        "Plataforma mencionada no título; confirmar compatibilidade."
+      ],
+      "physical_media": "physical_confirmed",
+      "physical_media_reasons": [
+        "Indicação explícita de mídia física no título; não verificada na loja."
+      ],
+      "change": "new",
+      "found_by_queries": [
+        "jogo Switch",
+        "mídia física"
+      ],
+      "collected_at": "2026-10-16T13:57:38.903087+00:00",
+      "store_verification": {
+        "result": "pending",
+        "reason": "Execute verificar_midia.py; falha de acesso mantém revisão pendente."
+      }
+    },
+    {
+      "source": "pelando",
+      "external_id": "4714d5ae-3499-4092-af76-78a0c753caae",
+      "title": "Jogo Star Wars Zero Company - PS5 - Mídia Física",
+      "price_cents": 23800,
+      "currency": "BRL",
+      "source_url": "https://www.pelando.com.br/d/jogo-star-wars-zero-company-ps5-midia-fisica-1e95",
+      "product_url": "https://www.kabum.com.br/produto/1058275/jogo-star-wars-zero-company-para-ps5-p5da10000043fgm",
+      "image_url": "https://media.pelando.com.br/_biXwgdtyo05i-fCGtXiJhzWqIE=/0x100/filters:format(webp)/d/scp-svim2-1792073048844.jpg",
+      "store": {
+        "id": "300",
+        "name": "KaBuM!",
+        "slug": "kabum",
+        "logo": "/s/kabum-1776453511048.png",
+        "linkingEnabled": false,
+        "pageEnabled": false
+      },
+      "source_status": "active",
+      "kind": "promotion",
+      "approved_at": "2026-10-15T14:04:44.377Z",
+      "classification": "gaming",
+      "platform_suggestions": [
+        "ps5"
+      ],
+      "review_notes": [
+        "Plataforma mencionada no título; confirmar compatibilidade."
+      ],
+      "physical_media": "physical_confirmed",
+      "physical_media_reasons": [
+        "Indicação explícita de mídia física no título; não verificada na loja."
+      ],
+      "change": "new",
+      "found_by_queries": [
+        "jogo PS5",
+        "mídia física"
+      ],
+      "collected_at": "2026-10-16T13:57:38.903087+00:00",
+      "store_verification": {
+        "result": "pending",
+        "reason": "Execute verificar_midia.py; falha de acesso mantém revisão pendente."
+      }
+    }
+  ],
+  "uncertain_for_review": [],
+  "offers": [
+    {
+      "source": "pelando",
+      "external_id": "b040ca2d-2e99-4e1d-ad67-49fbc8ab459e",
+      "title": "Street Fighter 30th Anniversary Collection - PS4",
+      "price_cents": 1873,
+      "currency": "BRL",
+      "source_url": "https://www.pelando.com.br/d/street-fighter-30th-anniversary-collection-ps4-8808",
+      "product_url": "https://store.playstation.com/pt-br/product/UP0102-CUSA07828_00-SF30FULLGAME0001",
+      "image_url": "https://media.pelando.com.br/kmIPss3fu4xcXuPGZepoDQ6e7co=/0x100/filters:format(webp)/d/scp-mzbr7-1792153781030.jpg",
+      "store": {
+        "id": "428",
+        "name": "Playstation Store",
+        "slug": "store.playstation.com",
+        "logo": "s/0060ab88-9fde-422c-bdfe-8430a7ac7e2e.png",
+        "linkingEnabled": true,
+        "pageEnabled": false
+      },
+      "source_status": "active",
+      "kind": "promotion",
+      "approved_at": "2026-10-16T12:31:00.867Z",
+      "classification": "gaming",
+      "platform_suggestions": [
+        "ps4"
+      ],
+      "review_notes": [
+        "Plataforma mencionada no título; confirmar compatibilidade."
+      ],
+      "physical_media": "physical_likely",
+      "physical_media_reasons": [
+        "Plataforma e link de produto, sem sinais digitais; confirmar formato na loja."
+      ],
+      "change": "new",
+      "found_by_queries": [
+        "jogo PS4"
+      ],
+      "collected_at": "2026-10-16T13:57:38.903087+00:00",
+      "store_verification": {
+        "result": "pending",
+        "reason": "Execute verificar_midia.py; falha de acesso mantém revisão pendente."
+      }
+    },
+    {
+      "source": "pelando",
+      "external_id": "55603f75-4e09-4adf-a066-2053ee6d04a6",
+      "title": "Jogo Star Wars Zero Company - PS5 - Mídia Física",
+      "price_cents": 23200,
+      "currency": "BRL",
+      "source_url": "https://www.pelando.com.br/d/jogo-star-wars-zero-company-ps5-midia-fisica-62da",
+      "product_url": "https://www.amazon.com.br/dp/B0H8ZLZF3W",
+      "image_url": "https://media.pelando.com.br/29JrAgU1uZz7OdxxfB_PuZlp4tA=/0x100/filters:format(webp)/d/scp-0x0xh-1792086219235.jpg",
+      "store": {
+        "id": "367",
+        "name": "Amazon",
+        "slug": "amazon",
+        "logo": "/s/amazon-1776453307003.png",
+        "linkingEnabled": true,
+        "pageEnabled": true
+      },
+      "source_status": "active",
+      "kind": "promotion",
+      "approved_at": "2026-10-15T17:44:32.650Z",
+      "classification": "gaming",
+      "platform_suggestions": [
+        "ps5"
+      ],
+      "review_notes": [
+        "Plataforma mencionada no título; confirmar compatibilidade."
+      ],
+      "physical_media": "physical_confirmed",
+      "physical_media_reasons": [
+        "Indicação explícita de mídia física no título; não verificada na loja."
+      ],
+      "change": "new",
+      "found_by_queries": [
+        "jogo PS5",
+        "mídia física"
+      ],
+      "collected_at": "2026-10-16T13:57:38.903087+00:00",
+      "store_verification": {
+        "result": "pending",
+        "reason": "Execute verificar_midia.py; falha de acesso mantém revisão pendente."
+      }
+    },
+    {
+      "source": "pelando",
+      "external_id": "6cb45f5e-a19c-4275-8d90-1e000ea0608e",
+      "title": "Jogo Cronos The New Dawn - Nintendo Switch 2 - Mídia Física",
+      "price_cents": 16087,
+      "currency": "BRL",
+      "source_url": "https://www.pelando.com.br/d/jogo-cronos-the-new-dawn-nintendo-switch-2-midia-fisica-a855",
+      "product_url": "https://www.amazon.com.br/dp/B0FKVWSM3N",
+      "image_url": "https://media.pelando.com.br/dVl9CExyrk0RCup8dpUyPEOa4MU=/0x100/filters:format(webp)/d/scp-l90c9f-1792085082613.jpg",
+      "store": {
+        "id": "367",
+        "name": "Amazon",
+        "slug": "amazon",
+        "logo": "/s/amazon-1776453307003.png",
+        "linkingEnabled": true,
+        "pageEnabled": true
+      },
+      "source_status": "active",
+      "kind": "promotion",
+      "approved_at": "2026-10-15T17:26:32.066Z",
+      "classification": "gaming",
+      "platform_suggestions": [
+        "switch-2"
+      ],
+      "review_notes": [
+        "Plataforma mencionada no título; confirmar compatibilidade."
+      ],
+      "physical_media": "physical_confirmed",
+      "physical_media_reasons": [
+        "Indicação explícita de mídia física no título; não verificada na loja."
+      ],
+      "change": "new",
+      "found_by_queries": [
+        "jogo Switch",
+        "mídia física"
+      ],
+      "collected_at": "2026-10-16T13:57:38.903087+00:00",
+      "store_verification": {
+        "result": "pending",
+        "reason": "Execute verificar_midia.py; falha de acesso mantém revisão pendente."
+      }
+    },
+    {
+      "source": "pelando",
+      "external_id": "4714d5ae-3499-4092-af76-78a0c753caae",
+      "title": "Jogo Star Wars Zero Company - PS5 - Mídia Física",
+      "price_cents": 23800,
+      "currency": "BRL",
+      "source_url": "https://www.pelando.com.br/d/jogo-star-wars-zero-company-ps5-midia-fisica-1e95",
+      "product_url": "https://www.kabum.com.br/produto/1058275/jogo-star-wars-zero-company-para-ps5-p5da10000043fgm",
+      "image_url": "https://media.pelando.com.br/_biXwgdtyo05i-fCGtXiJhzWqIE=/0x100/filters:format(webp)/d/scp-svim2-1792073048844.jpg",
+      "store": {
+        "id": "300",
+        "name": "KaBuM!",
+        "slug": "kabum",
+        "logo": "/s/kabum-1776453511048.png",
+        "linkingEnabled": false,
+        "pageEnabled": false
+      },
+      "source_status": "active",
+      "kind": "promotion",
+      "approved_at": "2026-10-15T14:04:44.377Z",
+      "classification": "gaming",
+      "platform_suggestions": [
+        "ps5"
+      ],
+      "review_notes": [
+        "Plataforma mencionada no título; confirmar compatibilidade."
+      ],
+      "physical_media": "physical_confirmed",
+      "physical_media_reasons": [
+        "Indicação explícita de mídia física no título; não verificada na loja."
+      ],
+      "change": "new",
+      "found_by_queries": [
+        "jogo PS5",
+        "mídia física"
+      ],
+      "collected_at": "2026-10-16T13:57:38.903087+00:00",
+      "store_verification": {
+        "result": "pending",
+        "reason": "Execute verificar_midia.py; falha de acesso mantém revisão pendente."
+      }
+    }
+  ],
+  "input_mode": "live_http"
+}

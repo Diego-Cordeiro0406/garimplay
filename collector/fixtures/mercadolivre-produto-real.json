@@ -1,0 +1,11 @@
+{
+  "capture_method": "Campos selecionados do Product JSON-LD do DOM renderizado no navegador; sem dados de navegação, frete ou comentários.",
+  "source_url": "https://www.mercadolivre.com.br/metal-gear-solid-master-collection-vol-1-ps5-midia-fisica/p/MLB26882382",
+  "product": {
+    "@type": "Product",
+    "name": "Metal Gear Solid Master Collection Vol 1 Ps5 Midia Fisica",
+    "sku": "MLB26882382",
+    "productID": "MLB26882382",
+    "description": "Versão do console: PlayStation 5. | Plataforma: Sony. | Formato: Físico. | Ano de lançamento: 2023. | Desenvolvido pela Konami. | Gênero: aventura. | Tamanho do arquivo: 40 GB. | Entretenimento digital. | Diversão garantida. | Classificação C."
+  }
+}

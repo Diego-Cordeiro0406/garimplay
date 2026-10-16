@@ -1,0 +1,138 @@
+{
+  "checked_at": "2026-10-16T13:58:05.135744+00:00",
+  "input_report": "coleta-001.json",
+  "input_mode": "live_http",
+  "total_candidates": 4,
+  "checked": 4,
+  "unchecked": 0,
+  "results": [
+    {
+      "external_id": "b040ca2d-2e99-4e1d-ad67-49fbc8ab459e",
+      "title": "Street Fighter 30th Anniversary Collection - PS4",
+      "verification": {
+        "checked_at": "2026-10-16T13:58:00.256541+00:00",
+        "source_url": "https://www.pelando.com.br/d/street-fighter-30th-anniversary-collection-ps4-8808",
+        "product_url": "https://store.playstation.com/pt-br/product/UP0102-CUSA07828_00-SF30FULLGAME0001",
+        "result": "unverified",
+        "evidence": [],
+        "errors": [
+          "Loja ou URL não suportada; revisar manualmente."
+        ],
+        "pelando": {
+          "id": "b040ca2d-2e99-4e1d-ad67-49fbc8ab459e",
+          "title": "Street Fighter 30th Anniversary Collection - PS4",
+          "status": "active",
+          "short_description_html": "<p>Menor preço histórico! Antes era R$ 41,21.</p>",
+          "description_html": null,
+          "price": 18.73
+        }
+      }
+    },
+    {
+      "external_id": "55603f75-4e09-4adf-a066-2053ee6d04a6",
+      "title": "Jogo Star Wars Zero Company - PS5 - Mídia Física",
+      "verification": {
+        "checked_at": "2026-10-16T13:58:00.629392+00:00",
+        "source_url": "https://www.pelando.com.br/d/jogo-star-wars-zero-company-ps5-midia-fisica-62da",
+        "product_url": "https://www.amazon.com.br/dp/B0H8ZLZF3W",
+        "result": "unverified",
+        "evidence": [],
+        "errors": [],
+        "pelando": {
+          "id": "55603f75-4e09-4adf-a066-2053ee6d04a6",
+          "title": "Jogo Star Wars Zero Company - PS5 - Mídia Física",
+          "status": "active",
+          "short_description_html": "<p>baixou um pouco mais</p><p>💰no PIX</p><p>🚚Frete grátis</p><p>✅Vendido e entregue por Amazon</p>",
+          "description_html": null,
+          "price": 232
+        },
+        "store": "amazon",
+        "store_checked_url": "https://www.amazon.com.br/dp/B0H8ZLZF3W",
+        "identity_checked": true,
+        "store_title": "Star Wars Zero Company - PlayStation 5",
+        "preorder_signal": false,
+        "price_verified": false,
+        "packaging_declared": false,
+        "game_delivery": "unspecified",
+        "notes": [
+          "Preço, cupons, estoque e data de entrega não confirmados."
+        ],
+        "extraction_method": "amazon_product_sections"
+      }
+    },
+    {
+      "external_id": "6cb45f5e-a19c-4275-8d90-1e000ea0608e",
+      "title": "Jogo Cronos The New Dawn - Nintendo Switch 2 - Mídia Física",
+      "verification": {
+        "checked_at": "2026-10-16T13:58:01.483619+00:00",
+        "source_url": "https://www.pelando.com.br/d/jogo-cronos-the-new-dawn-nintendo-switch-2-midia-fisica-a855",
+        "product_url": "https://www.amazon.com.br/dp/B0FKVWSM3N",
+        "result": "unverified",
+        "evidence": [],
+        "errors": [],
+        "pelando": {
+          "id": "6cb45f5e-a19c-4275-8d90-1e000ea0608e",
+          "title": "Jogo Cronos The New Dawn - Nintendo Switch 2 - Mídia Física",
+          "status": "active",
+          "short_description_html": "<p>excelente valor na mídia física. A digital ja bateu R$ 149.</p><p>💰no pix ou R$ 167 em até 8x sem juros</p><p>🚚Frete grátis Prime</p><p>✅Vendido por Amazon Global. Taxas de importação já inclusas</p>",
+          "description_html": null,
+          "price": 160.87
+        },
+        "store": "amazon",
+        "store_checked_url": "https://www.amazon.com.br/dp/B0FKVWSM3N",
+        "identity_checked": true,
+        "store_title": "Cronos - Nintendo Switch 2",
+        "preorder_signal": false,
+        "price_verified": false,
+        "packaging_declared": false,
+        "game_delivery": "unspecified",
+        "notes": [
+          "Preço, cupons, estoque e data de entrega não confirmados."
+        ],
+        "extraction_method": "amazon_product_sections"
+      }
+    },
+    {
+      "external_id": "4714d5ae-3499-4092-af76-78a0c753caae",
+      "title": "Jogo Star Wars Zero Company - PS5 - Mídia Física",
+      "verification": {
+        "checked_at": "2026-10-16T13:58:03.777776+00:00",
+        "source_url": "https://www.pelando.com.br/d/jogo-star-wars-zero-company-ps5-midia-fisica-1e95",
+        "product_url": "https://www.kabum.com.br/produto/1058275/jogo-star-wars-zero-company-para-ps5-p5da10000043fgm",
+        "result": "physical_explicit_in_store",
+        "evidence": [
+          {
+            "section": "technicalInformation",
+            "signal": "physical",
+            "excerpt": " em disco necessário: XX GB • Manual: Não Conteúdo da Embalagem: • 1x Mídia Física STAR WARS Zero Company PS5"
+          }
+        ],
+        "errors": [],
+        "pelando": {
+          "id": "4714d5ae-3499-4092-af76-78a0c753caae",
+          "title": "Jogo Star Wars Zero Company - PS5 - Mídia Física",
+          "status": "active",
+          "short_description_html": "<p>acredito ser o menor valor já registrado</p><p>lançado em 27 de agosto</p>",
+          "description_html": null,
+          "price": 238
+        },
+        "store": "kabum",
+        "store_checked_url": "https://www.kabum.com.br/produto/1058275/jogo-star-wars-zero-company-para-ps5-p5da10000043fgm",
+        "identity_checked": true,
+        "store_title": "Jogo Star Wars Zero Company, para PS5 - P5DA10000043FGM",
+        "preorder_signal": false,
+        "price_verified": false,
+        "packaging_declared": false,
+        "game_delivery": "physical_media_declared",
+        "notes": [
+          "Preço, cupons, estoque e data de entrega não confirmados."
+        ],
+        "extraction_method": "kabum_next_product",
+        "review_required": false
+      }
+    }
+  ],
+  "eligible_after_verification": [
+    "4714d5ae-3499-4092-af76-78a0c753caae"
+  ]
+}
