@@ -31,3 +31,9 @@ entrypoint = "./functions/extract-product-metadata/index.ts"
 # Specifies static files to be bundled with the function. Supports glob patterns.
 # For example, if you want to serve static HTML pages in your function:
 # static_files = [ "./functions/extract-product-metadata/*.html" ]
+
+# Serviço para o coletor: autenticação própria obrigatória em x-ingest-key.
+[functions.ingest-offers]
+enabled = true
+verify_jwt = false
+entrypoint = "./functions/ingest-offers/index.ts"

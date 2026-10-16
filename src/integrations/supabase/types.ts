@@ -1,3 +1,4 @@
+import type { ImportedOffer } from "@/types/imported-offer";
 export type Json = string | number | boolean | null | { [key: string]: Json | undefined } | Json[];
 
 export type Database = {
@@ -8,6 +9,7 @@ export type Database = {
   };
   public: {
     Tables: {
+      imported_offers: { Row: ImportedOffer; Insert: never; Update: never; Relationships: [] };
       deals: {
         Row: {
           coupon_code: string | null;
@@ -151,6 +153,8 @@ export type Database = {
       [_ in never]: never;
     };
     Functions: {
+      review_imported_offer: { Args: { p_id: string; p_status: string }; Returns: undefined };
+      convert_imported_offer: { Args: { p_id: string; p_values: Json }; Returns: string };
       expire_deals: { Args: never; Returns: number };
       is_admin: { Args: never; Returns: boolean };
     };

@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 import {
   ExternalLink,
+  Download,
   LayoutDashboard,
   LoaderCircle,
   LogOut,
@@ -15,6 +16,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/co
 import { useAuth } from "@/hooks/useAuth";
 
 const navigation = [
+  { label: "Importações", to: "/admin/importacoes", icon: Download, end: false },
   {
     label: "Visão geral",
     to: "/admin",

@@ -30,15 +30,17 @@ export function useAdminDealForEdit(id: string | undefined) {
   });
 }
 
-export function useSaveAdminDeal(id?: string) {
+export function useSaveAdminDeal(id?: string, importId?: string) {
   const queryClient = useQueryClient();
 
   return useMutation({
     mutationFn: ({ values, image }: SaveAdminDealInput) =>
-      id ? updateAdminDeal(id, values, image) : createAdminDeal(values, image),
+      id ? updateAdminDeal(id, values, image) : createAdminDeal(values, image, importId),
 
     onSuccess: async () => {
       await Promise.all([
+        queryClient.invalidateQueries({ queryKey: ["admin", "imports"] }),
+        queryClient.invalidateQueries({ queryKey: ["admin", "import"] }),
         queryClient.invalidateQueries({
           queryKey: ["admin", "deals"],
         }),

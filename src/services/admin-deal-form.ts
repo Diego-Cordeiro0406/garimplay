@@ -1,5 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
-import type { Database } from "@/integrations/supabase/types";
+import type { Database, Json } from "@/integrations/supabase/types";
 import { parsePriceToCents, type DealFormValues } from "@/schemas/deal.schema";
 import { deleteDealImage, getDealImageKey, uploadDealImage } from "./deal-images";
 
@@ -63,7 +63,11 @@ function toPayload(values: DealFormValues): DealInsert {
   };
 }
 
-export async function createAdminDeal(values: DealFormValues, image: File | null = null) {
+export async function createAdminDeal(
+  values: DealFormValues,
+  image: File | null = null,
+  importId?: string
+) {
   const payload = toPayload(values);
 
   const {
@@ -78,6 +82,15 @@ export async function createAdminDeal(values: DealFormValues, image: File | null
   if (image) {
     const uploaded = await uploadDealImage(image);
     payload.image_url = uploaded.publicUrl;
+  }
+
+  if (importId) {
+    const { data, error } = await supabase.rpc("convert_imported_offer", {
+      p_id: importId,
+      p_values: { ...payload, status: "draft" } as Json,
+    });
+    if (error) throw error;
+    return { id: data };
   }
 
   const { data, error } = await supabase

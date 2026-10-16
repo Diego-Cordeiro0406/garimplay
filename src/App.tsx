@@ -20,6 +20,9 @@ import { ScrollToTop } from "./components/ScrollToTop";
 import { CookieConsentBanner } from "./components/CookieConsentBanner";
 import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
 
+import AdminImportsPage from "./pages/admin/AdminImportsPage";
+import AdminImportReviewPage from "./pages/admin/AdminImportReviewPage";
+
 function App() {
   const [queryClient] = useState(
     () =>
@@ -82,6 +85,9 @@ function App() {
                 <Route path="ofertas/nova" element={<AdminNewDealPage />} />
 
                 <Route path="ofertas/:id/editar" element={<AdminEditDealPage />} />
+
+                <Route path="importacoes" element={<AdminImportsPage />} />
+                <Route path="importacoes/:id" element={<AdminImportReviewPage />} />
 
                 <Route path="lojas" element={<AdminStoresPage />} />
 

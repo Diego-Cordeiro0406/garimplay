@@ -29,6 +29,8 @@ type DealRecord = Database["public"]["Tables"]["deals"]["Row"];
 
 type DealFormProps = {
   deal?: DealRecord;
+  importId?: string;
+  initialValues?: DealFormValues;
 };
 
 function mapDealToForm(deal: DealRecord): DealFormValues {
@@ -89,12 +91,12 @@ function FormSection({
   );
 }
 
-export function DealForm({ deal }: DealFormProps) {
+export function DealForm({ deal, importId, initialValues }: DealFormProps) {
   const navigate = useNavigate();
   const isEditing = Boolean(deal);
 
   const optionsQuery = useDealFormOptions();
-  const saveDeal = useSaveAdminDeal(deal?.id);
+  const saveDeal = useSaveAdminDeal(deal?.id, importId);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
 
   const {
@@ -107,7 +109,7 @@ export function DealForm({ deal }: DealFormProps) {
     formState: { errors, isDirty, isSubmitting },
   } = useForm<DealFormValues>({
     resolver: zodResolver(dealFormSchema),
-    defaultValues: defaultDealFormValues,
+    defaultValues: initialValues ?? defaultDealFormValues,
     mode: "onBlur",
   });
 
@@ -163,11 +165,13 @@ export function DealForm({ deal }: DealFormProps) {
 
   async function onSubmit(values: DealFormValues) {
     try {
-      await saveDeal.mutateAsync({
+      const saved = await saveDeal.mutateAsync({
         values,
         image: selectedImage,
       });
-      navigate("/admin/ofertas", { replace: true });
+      navigate(importId ? `/admin/ofertas/${saved.id}/editar` : "/admin/ofertas", {
+        replace: true,
+      });
     } catch {
       // A mensagem de erro será exibida pela mutation.
     }
@@ -197,7 +201,7 @@ export function DealForm({ deal }: DealFormProps) {
           </p>
 
           <h1 className="mt-2 text-2xl font-semibold tracking-tight sm:text-3xl">
-            {isEditing ? "Editar oferta" : "Nova oferta"}
+            {isEditing ? "Editar oferta" : importId ? "Revisar importação" : "Nova oferta"}
           </h1>
 
           <p className="mt-2 text-sm text-muted-foreground">
@@ -469,12 +473,15 @@ export function DealForm({ deal }: DealFormProps) {
                 name="status"
                 control={control}
                 render={({ field }) => {
-                  const statusOptions = [
+                  const allStatusOptions = [
                     { value: "draft", label: "Rascunho" },
                     { value: "published", label: "Publicada" },
                     { value: "expired", label: "Expirada" },
                   ] as const;
 
+                  const statusOptions = importId
+                    ? allStatusOptions.filter((option) => option.value === "draft")
+                    : allStatusOptions;
                   return (
                     <Select
                       value={field.value}
@@ -542,7 +549,11 @@ export function DealForm({ deal }: DealFormProps) {
               ) : (
                 <>
                   <Save className="size-4" />
-                  {isEditing ? "Salvar alterações" : "Cadastrar oferta"}
+                  {isEditing
+                    ? "Salvar alterações"
+                    : importId
+                      ? "Criar rascunho"
+                      : "Cadastrar oferta"}
                 </>
               )}
             </Button>
