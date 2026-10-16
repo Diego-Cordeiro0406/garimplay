@@ -30,5 +30,7 @@ export interface Deal {
   rules?: string | null;
   expiresAt?: string | null;
 
+  preOrder: boolean;
+
   createdAt: string;
 }

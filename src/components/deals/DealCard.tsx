@@ -67,6 +67,22 @@ export function DealCard({ deal }: DealCardProps) {
           </div>
         )}
 
+        {deal.preOrder && (
+          <span
+            className="
+              absolute left-2 top-2 z-10
+              rounded-sm bg-amber-600
+              px-2 py-1
+              text-[9px] font-bold
+              uppercase tracking-wide text-white
+              shadow-sm
+              sm:left-3 sm:top-3 sm:text-[10px]
+            "
+          >
+            Pré-venda
+          </span>
+        )}
+
         {isExpired && (
           <span
             className="

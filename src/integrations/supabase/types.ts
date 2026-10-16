@@ -88,6 +88,7 @@ export type Database = {
           original_price_cents: number | null;
           payment_conditions: string | null;
           platform_id: string;
+          pre_order: boolean;
           price_cents: number;
           rules: string | null;
           status: string;
@@ -108,6 +109,7 @@ export type Database = {
           original_price_cents?: number | null;
           payment_conditions?: string | null;
           platform_id: string;
+          pre_order?: boolean;
           price_cents: number;
           rules?: string | null;
           status?: string;
@@ -128,6 +130,7 @@ export type Database = {
           original_price_cents?: number | null;
           payment_conditions?: string | null;
           platform_id?: string;
+          pre_order?: boolean;
           price_cents?: number;
           rules?: string | null;
           status?: string;

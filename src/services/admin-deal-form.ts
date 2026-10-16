@@ -60,6 +60,7 @@ function toPayload(values: DealFormValues): DealInsert {
     rules: nullable(values.rules),
     expires_at: values.expiresAt ? new Date(values.expiresAt).toISOString() : null,
     status: values.status,
+    pre_order: values.preOrder,
   };
 }
 

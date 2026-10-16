@@ -24,6 +24,7 @@ import { centsToInput, toLocalDateTime } from "@/lib/formatters";
 import { DealImageUpload } from "./DealImageUpload";
 import type { ExtractedProduct } from "@/services/productMetadata";
 import { ProductMetadataSearch } from "./ProductMetadataSearch";
+import { Switch } from "../ui/switch";
 
 type DealRecord = Database["public"]["Tables"]["deals"]["Row"];
 
@@ -49,6 +50,7 @@ function mapDealToForm(deal: DealRecord): DealFormValues {
     rules: deal.rules ?? "",
     expiresAt: toLocalDateTime(deal.expires_at),
     status: deal.status as DealFormValues["status"],
+    preOrder: deal.pre_order,
   };
 }
 
@@ -464,6 +466,32 @@ export function DealForm({ deal, importId, initialValues }: DealFormProps) {
                 Opcional. O horário será interpretado no fuso local do navegador.
               </p>
               <FieldError message={errors.expiresAt?.message} />
+            </div>
+
+            <div className="flex items-center justify-between gap-4 rounded-md border border-border p-4">
+              <div className="space-y-1">
+                <Label htmlFor="preOrder" className="cursor-pointer">
+                  Pré-venda
+                </Label>
+
+                <p className="text-xs text-muted-foreground">
+                  Identifica ofertas de jogos que ainda não foram lançados.
+                </p>
+              </div>
+
+              <Controller
+                name="preOrder"
+                control={control}
+                render={({ field }) => (
+                  <Switch
+                    id="preOrder"
+                    checked={field.value}
+                    onCheckedChange={field.onChange}
+                    disabled={saving}
+                    aria-label="Marcar como pré-venda"
+                  />
+                )}
+              />
             </div>
 
             <div className="space-y-2">

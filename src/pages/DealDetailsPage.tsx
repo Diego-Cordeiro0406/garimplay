@@ -133,7 +133,13 @@ export default function DealDetailsPage() {
       {/* Conteúdo principal */}
       <div className="grid gap-8 lg:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] lg:gap-12">
         {/* Capa */}
-        <div className="flex min-h-80 items-center justify-center rounded-md border border-border bg-secondary p-8 sm:p-12">
+        <div
+          className="
+    relative flex min-h-80 items-center justify-center
+    overflow-hidden rounded-md border border-border
+    bg-secondary p-8 sm:p-12
+  "
+        >
           {deal.imageUrl ? (
             <img
               src={deal.imageUrl}
@@ -143,6 +149,31 @@ export default function DealDetailsPage() {
           ) : (
             <div className="flex min-h-64 items-center justify-center text-muted-foreground">
               <Gamepad2 className="size-20" strokeWidth={1} />
+            </div>
+          )}
+
+          {deal.preOrder && (
+            <div
+              className="
+        pointer-events-none absolute right-0 top-0
+        z-10 size-28 overflow-hidden
+        sm:size-36
+      "
+            >
+              <span
+                className="
+          absolute right-[-38px] top-[25px]
+          w-[160px] rotate-45
+          bg-amber-600 py-1.5
+          text-center text-[10px]
+          font-bold uppercase tracking-wider
+          text-white shadow-md
+          sm:right-[-45px] sm:top-[32px]
+          sm:w-[200px] sm:py-2 sm:text-xs
+        "
+              >
+                Pré-venda
+              </span>
             </div>
           )}
         </div>

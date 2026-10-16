@@ -62,6 +62,8 @@ export const dealFormSchema = z
     paymentConditions: optionalText(1000),
     rules: optionalText(3000),
 
+    preOrder: z.boolean(),
+
     expiresAt: z
       .string()
       .refine(
@@ -121,4 +123,5 @@ export const defaultDealFormValues: DealFormValues = {
   rules: "",
   expiresAt: "",
   status: "draft",
+  preOrder: false,
 };
