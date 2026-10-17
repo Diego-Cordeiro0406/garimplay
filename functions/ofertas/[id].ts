@@ -82,8 +82,12 @@ export async function onRequestGet({ request, env, params }: Context): Promise<R
       deal.status === "expired" ||
       Boolean(deal.expires_at && Date.parse(deal.expires_at) <= Date.now());
     const canonical = `${BASE}/ofertas/${encodeURIComponent(deal.id)}`;
-    const title = `${deal.title} por ${money(deal.price_cents)} | Garimplay`;
-    const description = `Confira a oferta de ${deal.title} por ${money(deal.price_cents)} na ${deal.store.name}. Veja as condições e a disponibilidade no Garimplay.`;
+    const title = expired
+      ? `${deal.title} | Oferta expirada | Garimplay`
+      : `${deal.title} por ${money(deal.price_cents)} | Garimplay`;
+    const description = expired
+      ? `Esta oferta de ${deal.title} na ${deal.store.name} expirou. Confira outras promoções de jogos físicos no Garimplay.`
+      : `Confira a oferta de ${deal.title} por ${money(deal.price_cents)} na ${deal.store.name}. Veja as condições e a disponibilidade no Garimplay.`;
     const image = deal.image_url ? new URL(deal.image_url, BASE).href : `${BASE}/og-image.png`;
     const tags = [
       `<title>${esc(title)}</title>`,
@@ -115,6 +119,7 @@ export async function onRequestGet({ request, env, params }: Context): Promise<R
           priceCurrency: "BRL",
           url: deal.deal_url,
           seller: { "@type": "Organization", name: deal.store.name },
+          ...(deal.pre_order ? { availability: "https://schema.org/PreOrder" } : {}),
         },
       };
       tags.push(`<script type="application/ld+json">${jsonLd(product)}</script>`);
