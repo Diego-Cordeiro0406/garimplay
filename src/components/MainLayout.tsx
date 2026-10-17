@@ -58,10 +58,6 @@ export function MainLayout({ children }: MainLayoutProps) {
               nos sites das lojas, que são responsáveis pelos pedidos, entregas e atendimento ao
               consumidor.
             </p>
-
-            <p className="max-w-2xl text-xs leading-relaxed text-muted-foreground">
-              Não possuímos vínculo comercial ou parceria oficial com as lojas divulgadas.
-            </p>
           </div>
 
           <nav
