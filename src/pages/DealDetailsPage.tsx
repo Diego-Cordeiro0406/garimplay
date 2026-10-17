@@ -114,14 +114,22 @@ export default function DealDetailsPage() {
 
   const hasConditions = Boolean(deal.paymentConditions || deal.rules || deal.expiresAt);
 
+  const seoTitle = isExpired
+    ? `${deal.title} | Oferta expirada`
+    : `${deal.title} por ${formatPrice(deal.price)}`;
+
+  const seoDescription = isExpired
+    ? `Esta oferta de ${deal.title} na ${deal.store.name} expirou. Confira outras promoções de jogos físicos no Garimplay.`
+    : `Confira a oferta de ${deal.title} por ${formatPrice(deal.price)} na ${deal.store.name}. Veja as condições e a disponibilidade no Garimplay.`;
+
   return (
     <div className="space-y-8">
       <PageSEO
-        title={`${deal.title} por ${formatPrice(deal.price)}`}
-        description={`Confira a oferta de ${deal.title} por ${formatPrice(deal.price)} na ${deal.store.name}. Veja as condições e a disponibilidade no Garimplay.`}
+        title={seoTitle}
+        description={seoDescription}
         canonical={`/ofertas/${deal.id}`}
         image={deal.imageUrl}
-        type="article"
+        type="product"
         noindex={isExpired}
       />
       {/* Navegação */}
@@ -135,10 +143,10 @@ export default function DealDetailsPage() {
         {/* Capa */}
         <div
           className="
-    relative flex min-h-80 items-center justify-center
-    overflow-hidden rounded-md border border-border
-    bg-secondary p-8 sm:p-12
-  "
+            relative flex min-h-80 items-center justify-center
+            overflow-hidden rounded-md border border-border
+            bg-secondary p-8 sm:p-12
+          "
         >
           {deal.imageUrl ? (
             <img
@@ -152,25 +160,25 @@ export default function DealDetailsPage() {
             </div>
           )}
 
-          {deal.preOrder && (
+          {deal.preOrder && !isExpired && (
             <div
               className="
-        pointer-events-none absolute right-0 top-0
-        z-10 size-28 overflow-hidden
-        sm:size-36
-      "
+                pointer-events-none absolute right-0 top-0
+                z-10 size-28 overflow-hidden
+                sm:size-36
+              "
             >
               <span
                 className="
-          absolute -right-9.5 top-6.25
-          w-40 rotate-45
-          bg-amber-600 py-1.5
-          text-center text-[10px]
-          font-bold uppercase tracking-wider
-          text-white shadow-md
-          sm:-right-11.25 sm:top-8
-          sm:w-50 sm:py-2 sm:text-xs
-        "
+                  absolute -right-9.5 top-6.25
+                  w-40 rotate-45
+                  bg-amber-600 py-1.5
+                  text-center text-[10px]
+                  font-bold uppercase tracking-wider
+                  text-white shadow-md
+                  sm:-right-11.25 sm:top-8
+                  sm:w-50 sm:py-2 sm:text-xs
+                "
               >
                 Pré-venda
               </span>

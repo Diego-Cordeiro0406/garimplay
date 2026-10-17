@@ -4,28 +4,32 @@ import type { Deal } from "@/types/deal";
 
 type ExpirableDeal = Pick<Deal, "status" | "expiresAt">;
 
+const dateNow = Date.now();
+
 export function useDealExpiration(deal: ExpirableDeal | null | undefined): boolean {
   const status = deal?.status;
   const expiresAt = deal?.expiresAt;
 
-  const [expiredDeadline, setExpiredDeadline] = useState<string | null>(null);
+  const [, setExpirationTick] = useState(0);
+
+  const expirationTime = expiresAt ? new Date(expiresAt).getTime() : NaN;
+
+  const hasValidExpiration = Number.isFinite(expirationTime);
+
+  const isExpired =
+    status === "expired" ||
+    (status === "published" && hasValidExpiration && dateNow >= expirationTime);
 
   useEffect(() => {
-    if (status !== "published" || !expiresAt) {
+    if (status !== "published" || !hasValidExpiration || Date.now() >= expirationTime) {
       return;
     }
 
-    const expirationTime = new Date(expiresAt).getTime();
-
-    if (!Number.isFinite(expirationTime)) {
-      return;
-    }
-
-    function checkExpiration() {
+    const checkExpiration = () => {
       if (Date.now() >= expirationTime) {
-        setExpiredDeadline(expiresAt!);
+        setExpirationTick((value) => value + 1);
       }
-    }
+    };
 
     const remaining = expirationTime - Date.now();
 
@@ -38,23 +42,17 @@ export function useDealExpiration(deal: ExpirableDeal | null | undefined): boole
     }
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
+
     window.addEventListener("focus", checkExpiration);
 
     return () => {
       window.clearTimeout(timeout);
 
       document.removeEventListener("visibilitychange", handleVisibilityChange);
+
       window.removeEventListener("focus", checkExpiration);
     };
-  }, [status, expiresAt]);
+  }, [status, expiresAt, expirationTime, hasValidExpiration]);
 
-  if (status === "expired") {
-    return true;
-  }
-
-  if (status !== "published" || !expiresAt) {
-    return false;
-  }
-
-  return expiredDeadline === expiresAt;
+  return Boolean(isExpired);
 }
