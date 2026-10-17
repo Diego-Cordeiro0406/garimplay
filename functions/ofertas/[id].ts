@@ -90,21 +90,21 @@ export async function onRequestGet({ request, env, params }: Context): Promise<R
       : `Confira a oferta de ${deal.title} por ${money(deal.price_cents)} na ${deal.store.name}. Veja as condições e a disponibilidade no Garimplay.`;
     const image = deal.image_url ? new URL(deal.image_url, BASE).href : `${BASE}/og-image.png`;
     const tags = [
-      `<title>${esc(title)}</title>`,
-      `<meta name="description" content="${esc(description)}">`,
-      `<meta name="robots" content="${expired ? "noindex, follow" : "index, follow"}">`,
-      `<link rel="canonical" href="${esc(canonical)}">`,
-      `<meta property="og:type" content="product">`,
-      `<meta property="og:url" content="${esc(canonical)}">`,
-      `<meta property="og:title" content="${esc(title)}">`,
-      `<meta property="og:description" content="${esc(description)}">`,
-      `<meta property="og:image" content="${esc(image)}">`,
-      `<meta property="og:locale" content="pt_BR">`,
-      `<meta property="og:site_name" content="Garimplay">`,
-      `<meta name="twitter:card" content="summary_large_image">`,
-      `<meta name="twitter:title" content="${esc(title)}">`,
-      `<meta name="twitter:description" content="${esc(description)}">`,
-      `<meta name="twitter:image" content="${esc(image)}">`,
+      `<title data-seo-prerender="true">${esc(title)}</title>`,
+      `<meta data-seo-prerender="true" name="description" content="${esc(description)}">`,
+      `<meta data-seo-prerender="true" name="robots" content="${expired ? "noindex, follow" : "index, follow"}">`,
+      `<link data-seo-prerender="true" rel="canonical" href="${esc(canonical)}">`,
+      `<meta data-seo-prerender="true" property="og:type" content="product">`,
+      `<meta data-seo-prerender="true" property="og:url" content="${esc(canonical)}">`,
+      `<meta data-seo-prerender="true" property="og:title" content="${esc(title)}">`,
+      `<meta data-seo-prerender="true" property="og:description" content="${esc(description)}">`,
+      `<meta data-seo-prerender="true" property="og:image" content="${esc(image)}">`,
+      `<meta data-seo-prerender="true" property="og:locale" content="pt_BR">`,
+      `<meta data-seo-prerender="true" property="og:site_name" content="Garimplay">`,
+      `<meta data-seo-prerender="true" name="twitter:card" content="summary_large_image">`,
+      `<meta data-seo-prerender="true" name="twitter:title" content="${esc(title)}">`,
+      `<meta data-seo-prerender="true" name="twitter:description" content="${esc(description)}">`,
+      `<meta data-seo-prerender="true" name="twitter:image" content="${esc(image)}">`,
     ];
     if (!expired) {
       const product = {

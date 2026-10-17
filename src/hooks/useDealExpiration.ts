@@ -4,32 +4,27 @@ import type { Deal } from "@/types/deal";
 
 type ExpirableDeal = Pick<Deal, "status" | "expiresAt">;
 
-const dateNow = Date.now();
-
 export function useDealExpiration(deal: ExpirableDeal | null | undefined): boolean {
   const status = deal?.status;
   const expiresAt = deal?.expiresAt;
 
-  const [, setExpirationTick] = useState(0);
+  const [now, setNow] = useState(() => Date.now());
 
   const expirationTime = expiresAt ? new Date(expiresAt).getTime() : NaN;
 
   const hasValidExpiration = Number.isFinite(expirationTime);
 
-  const isExpired =
-    status === "expired" ||
-    (status === "published" && hasValidExpiration && dateNow >= expirationTime);
-
   useEffect(() => {
-    if (status !== "published" || !hasValidExpiration || Date.now() >= expirationTime) {
+    if (status !== "published" || !hasValidExpiration) {
       return;
     }
 
-    const checkExpiration = () => {
-      if (Date.now() >= expirationTime) {
-        setExpirationTick((value) => value + 1);
-      }
-    };
+    function checkExpiration() {
+      setNow(Date.now());
+    }
+
+    // Atualiza o horário ao receber uma nova oferta
+    checkExpiration();
 
     const remaining = expirationTime - Date.now();
 
@@ -54,5 +49,7 @@ export function useDealExpiration(deal: ExpirableDeal | null | undefined): boole
     };
   }, [status, expiresAt, expirationTime, hasValidExpiration]);
 
-  return Boolean(isExpired);
+  return (
+    status === "expired" || (status === "published" && hasValidExpiration && now >= expirationTime)
+  );
 }

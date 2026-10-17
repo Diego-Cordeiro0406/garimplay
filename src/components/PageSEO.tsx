@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 
 const BASE_URL = (import.meta.env.VITE_SITE_URL || "https://garimplay.com.br").replace(/\/$/, "");
@@ -24,6 +25,12 @@ export function PageSEO({
   const fullTitle = title.includes("Garimplay") ? title : `${title} | Garimplay`;
 
   const imageUrl = image ? new URL(image, BASE_URL).href : `${BASE_URL}/og-image.png`;
+
+  useEffect(() => {
+    document
+      .querySelectorAll('head [data-seo-prerender="true"], head [data-seo-default="true"]')
+      .forEach((element) => element.remove());
+  }, []);
 
   return (
     <Helmet>

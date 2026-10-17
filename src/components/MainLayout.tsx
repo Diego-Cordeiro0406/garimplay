@@ -48,7 +48,7 @@ export function MainLayout({ children }: MainLayoutProps) {
       <main className="mx-auto w-full max-w-360 flex-1 px-4 py-8 sm:px-6 lg:px-8">{children}</main>
 
       <footer className="border-t border-border">
-        <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-360 px-4 py-6 sm:px-6 lg:px-8">
           <div className="space-y-3">
             <h2 className="text-xs font-medium text-foreground">Sobre as ofertas</h2>
 
