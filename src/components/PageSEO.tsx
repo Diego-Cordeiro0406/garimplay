@@ -1,13 +1,14 @@
+import { useEffect } from "react";
 import { Helmet } from "react-helmet-async";
 
-const BASE_URL = import.meta.env.VITE_SITE_URL?.replace(/\/$/, "") ?? "";
+const BASE_URL = (import.meta.env.VITE_SITE_URL || "https://garimplay.com.br").replace(/\/$/, "");
 
 interface PageSEOProps {
   title: string;
   description: string;
   canonical: string;
   image?: string | null;
-  type?: "website" | "article";
+  type?: "website" | "article" | "product";
   noindex?: boolean;
 }
 
@@ -19,15 +20,24 @@ export function PageSEO({
   type = "website",
   noindex = false,
 }: PageSEOProps) {
-  const canonicalUrl = `${BASE_URL}${canonical}`;
+  const canonicalUrl = new URL(canonical, BASE_URL).href;
+
   const fullTitle = title.includes("Garimplay") ? title : `${title} | Garimplay`;
 
   const imageUrl = image ? new URL(image, BASE_URL).href : `${BASE_URL}/og-image.png`;
 
+  useEffect(() => {
+    document
+      .querySelectorAll('head [data-seo-prerender="true"], head [data-seo-default="true"]')
+      .forEach((element) => element.remove());
+  }, []);
+
   return (
     <Helmet>
       <title>{fullTitle}</title>
+
       <meta name="description" content={description} />
+
       <link rel="canonical" href={canonicalUrl} />
 
       <meta name="robots" content={noindex ? "noindex, follow" : "index, follow"} />

@@ -8,24 +8,23 @@ export function useDealExpiration(deal: ExpirableDeal | null | undefined): boole
   const status = deal?.status;
   const expiresAt = deal?.expiresAt;
 
-  const [expiredDeadline, setExpiredDeadline] = useState<string | null>(null);
+  const [now, setNow] = useState(() => Date.now());
+
+  const expirationTime = expiresAt ? new Date(expiresAt).getTime() : NaN;
+
+  const hasValidExpiration = Number.isFinite(expirationTime);
 
   useEffect(() => {
-    if (status !== "published" || !expiresAt) {
-      return;
-    }
-
-    const expirationTime = new Date(expiresAt).getTime();
-
-    if (!Number.isFinite(expirationTime)) {
+    if (status !== "published" || !hasValidExpiration) {
       return;
     }
 
     function checkExpiration() {
-      if (Date.now() >= expirationTime) {
-        setExpiredDeadline(expiresAt!);
-      }
+      setNow(Date.now());
     }
+
+    // Atualiza o horário ao receber uma nova oferta
+    checkExpiration();
 
     const remaining = expirationTime - Date.now();
 
@@ -38,23 +37,19 @@ export function useDealExpiration(deal: ExpirableDeal | null | undefined): boole
     }
 
     document.addEventListener("visibilitychange", handleVisibilityChange);
+
     window.addEventListener("focus", checkExpiration);
 
     return () => {
       window.clearTimeout(timeout);
 
       document.removeEventListener("visibilitychange", handleVisibilityChange);
+
       window.removeEventListener("focus", checkExpiration);
     };
-  }, [status, expiresAt]);
+  }, [status, expiresAt, expirationTime, hasValidExpiration]);
 
-  if (status === "expired") {
-    return true;
-  }
-
-  if (status !== "published" || !expiresAt) {
-    return false;
-  }
-
-  return expiredDeadline === expiresAt;
+  return (
+    status === "expired" || (status === "published" && hasValidExpiration && now >= expirationTime)
+  );
 }

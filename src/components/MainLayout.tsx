@@ -48,7 +48,7 @@ export function MainLayout({ children }: MainLayoutProps) {
       <main className="mx-auto w-full max-w-360 flex-1 px-4 py-8 sm:px-6 lg:px-8">{children}</main>
 
       <footer className="border-t border-border">
-        <div className="mx-auto w-full max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+        <div className="mx-auto w-full max-w-360 px-4 py-6 sm:px-6 lg:px-8">
           <div className="space-y-3">
             <h2 className="text-xs font-medium text-foreground">Sobre as ofertas</h2>
 
@@ -57,10 +57,6 @@ export function MainLayout({ children }: MainLayoutProps) {
               vendemos produtos nem processamos pagamentos. As compras são realizadas diretamente
               nos sites das lojas, que são responsáveis pelos pedidos, entregas e atendimento ao
               consumidor.
-            </p>
-
-            <p className="max-w-2xl text-xs leading-relaxed text-muted-foreground">
-              Não possuímos vínculo comercial ou parceria oficial com as lojas divulgadas.
             </p>
           </div>
 
