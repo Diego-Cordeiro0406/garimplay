@@ -126,9 +126,11 @@ export async function onRequestGet({ request, env, params }: Context): Promise<R
     }
     const visible = `<section id="seo-prerender" aria-label="Detalhes da oferta" style="max-width:1100px;margin:3rem auto;padding:1rem;font-family:system-ui,sans-serif"><h1>${esc(deal.title)}</h1>${deal.image_url ? `<img src="${esc(image)}" alt="${esc(deal.title)}" width="280" style="max-width:100%;height:auto">` : ""}<p><strong>${esc(money(deal.price_cents))}</strong></p><p>${esc(deal.store.name)} · ${esc(deal.platform.name)}</p>${deal.pre_order ? "<p>Pré-venda</p>" : ""}${expired ? "<p>Oferta expirada</p>" : ""}${deal.description ? `<p>${esc(deal.description)}</p>` : ""}${!expired ? `<p><a href="${esc(deal.deal_url)}" rel="nofollow sponsored noopener noreferrer">Ver oferta na loja</a></p>` : ""}</section>`;
     // Remove metadados padrão do index.html para não gerar títulos e descriptions duplicados.
+    // Remove os metadados padrão do index.html antes de inserir os da oferta.
     const cleaned = template
-      .replace(/<title>[\s\S]*?<\/title>/i, "")
-      .replace(/<meta\s+name=["']description["'][^>]*>/i, "");
+      .replace(/<title\b[^>]*>[\s\S]*?<\/title>/i, "")
+      .replace(/<meta\b(?=[^>]*\bdata-seo-default\s*=\s*["']true["'])[^>]*\/?>/gi, "");
+
     const html = cleaned
       .replace("</head>", `${tags.join("\n")}\n</head>`)
       .replace('<div id="root"></div>', `${visible}\n<div id="root"></div>`);
