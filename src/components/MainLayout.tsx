@@ -62,7 +62,7 @@ export function MainLayout({ children }: MainLayoutProps) {
 
           <nav
             aria-label="Links institucionais"
-            className="mt-5 flex flex-wrap items-center gap-x-5 gap-y-2"
+            className="mt-5 flex flex-col items-start gap-x-5 gap-y-2"
           >
             <Link
               to="/privacidade"
@@ -73,7 +73,7 @@ export function MainLayout({ children }: MainLayoutProps) {
 
             <Link
               to="/sobre"
-              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
             >
               Sobre o Garimplay
             </Link>
