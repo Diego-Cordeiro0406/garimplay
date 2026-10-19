@@ -6,6 +6,7 @@ interface Env {
 interface SitemapDeal {
   id: string;
   updated_at: string | null;
+  expires_at: string | null;
 }
 
 interface PagesContext {
@@ -43,8 +44,9 @@ async function getPublishedDeals(env: Env): Promise<SitemapDeal[]> {
   while (true) {
     const url = new URL(`${env.SUPABASE_URL.replace(/\/$/, "")}/rest/v1/deals`);
 
-    url.searchParams.set("select", "id,updated_at");
+    url.searchParams.set("select", "id,updated_at,expires_at");
     url.searchParams.set("status", "eq.published");
+    url.searchParams.set("or", `(expires_at.is.null,expires_at.gt.${new Date().toISOString()})`);
     url.searchParams.set("order", "id.asc");
     url.searchParams.set("limit", String(PAGE_SIZE));
     url.searchParams.set("offset", String(offset));
@@ -84,7 +86,11 @@ export async function onRequestGet({ env }: PagesContext): Promise<Response> {
     const deals = await getPublishedDeals(env);
 
     const urls = [
+      // Páginas estáticas
       createUrlEntry("/"),
+      createUrlEntry("/sobre"),
+
+      // Páginas de ofertas
       ...deals.map((deal) =>
         createUrlEntry(`/ofertas/${encodeURIComponent(deal.id)}`, deal.updated_at)
       ),
