@@ -60,6 +60,8 @@ export default defineConfig({
         navigateFallback: "/index.html",
 
         navigateFallbackDenylist: [
+          /^\/$/,
+          /^\/sobre\/?$/,
           /^\/ofertas\//,
           /^\/sitemap\.xml$/,
           /^\/robots\.txt$/,

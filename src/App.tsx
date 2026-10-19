@@ -22,6 +22,7 @@ import { PrivacyPolicyPage } from "./pages/PrivacyPolicyPage";
 
 import AdminImportsPage from "./pages/admin/AdminImportsPage";
 import AdminImportReviewPage from "./pages/admin/AdminImportReviewPage";
+import AboutPage from "./pages/AboutPage";
 
 function App() {
   const [queryClient] = useState(
@@ -67,6 +68,15 @@ function App() {
               element={
                 <MainLayout>
                   <PrivacyPolicyPage />
+                </MainLayout>
+              }
+            />
+
+            <Route
+              path="/sobre"
+              element={
+                <MainLayout>
+                  <AboutPage />
                 </MainLayout>
               }
             />

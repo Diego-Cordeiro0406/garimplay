@@ -71,6 +71,13 @@ export function MainLayout({ children }: MainLayoutProps) {
               Política de Privacidade
             </Link>
 
+            <Link
+              to="/sobre"
+              className="text-sm text-muted-foreground transition-colors hover:text-foreground"
+            >
+              Sobre o Garimplay
+            </Link>
+
             <button
               type="button"
               onClick={() => {
