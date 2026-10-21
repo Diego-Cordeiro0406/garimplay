@@ -60,34 +60,52 @@ export function MainLayout({ children }: MainLayoutProps) {
             </p>
           </div>
 
-          <nav
-            aria-label="Links institucionais"
-            className="mt-5 flex flex-col items-start gap-x-5 gap-y-2"
-          >
-            <Link
-              to="/privacidade"
-              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Política de Privacidade
-            </Link>
+          <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:justify-between">
+            <nav aria-label="Links institucionais" className="flex flex-col items-start gap-3">
+              <h3 className="text-xs font-semibold text-foreground">Institucional</h3>
 
-            <Link
-              to="/sobre"
-              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Sobre o Garimplay
-            </Link>
+              <Link
+                to="/sobre"
+                className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+              >
+                Sobre o Garimplay
+              </Link>
 
-            <button
-              type="button"
-              onClick={() => {
-                window.dispatchEvent(new Event("open-cookie-preferences"));
-              }}
-              className="text-xs text-muted-foreground transition-colors hover:text-foreground"
-            >
-              Preferências de cookies
-            </button>
-          </nav>
+              <Link
+                to="/privacidade"
+                className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+              >
+                Política de Privacidade
+              </Link>
+
+              <button
+                type="button"
+                onClick={() => {
+                  window.dispatchEvent(new Event("open-cookie-preferences"));
+                }}
+                className="text-xs text-muted-foreground transition-colors hover:text-foreground"
+              >
+                Preferências de cookies
+              </button>
+            </nav>
+
+            <div className="space-y-3">
+              <h3 className="text-xs font-semibold text-foreground">Acompanhe o Garimplay</h3>
+
+              <a
+                href="https://www.instagram.com/garimplay_ofertas/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram do Garimplay (@garimplay_ofertas)"
+                className="inline-flex items-center gap-2 text-xs text-muted-foreground transition-colors hover:text-foreground"
+              >
+                {/* <Instagram className="size-4" aria-hidden="true" /> */}
+                <img src="/icons/instagram-icon.svg" className="h-4 w-4" alt="icone do instagram" />
+
+                <span>@garimplay_ofertas</span>
+              </a>
+            </div>
+          </div>
 
           <Separator className="my-5" />
 
