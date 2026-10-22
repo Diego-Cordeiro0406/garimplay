@@ -285,11 +285,25 @@ export default function DealDetailsPage() {
               </Button>
             )}
 
-            <div className="flex items-center justify-center">
-              <p className="text-center max-w-116 text-xs leading-relaxed text-muted-foreground">
+            <div className="flex flex-col items-center gap-2">
+              <p className="max-w-116 text-center text-xs leading-relaxed text-muted-foreground">
                 Você será redirecionado para o site da loja. Preços e disponibilidade podem mudar
                 sem aviso prévio.
               </p>
+
+              {deal.store.name === "Amazon" && (
+                <p className="max-w-116 text-center text-xs leading-relaxed text-muted-foreground">
+                  Publicidade: Como associado da Amazon, eu ganho com compras qualificadas, sem
+                  custo adicional para você.
+                </p>
+              )}
+
+              {deal.store.name === "Shopee" && (
+                <p className="max-w-116 text-center text-xs leading-relaxed text-muted-foreground">
+                  Publicidade: este link pode gerar uma comissão para o Garimplay, sem custo
+                  adicional para você.
+                </p>
+              )}
             </div>
           </div>
         </div>
@@ -370,9 +384,9 @@ export default function DealDetailsPage() {
           </div>
 
           <div>
-            <p className="text-muted-foreground">Publicada em</p>
+            <p className="text-muted-foreground">Atualizado em</p>
 
-            <p className="mt-1 font-medium">{dateFormatter.format(new Date(deal.createdAt))}</p>
+            <p className="mt-1 font-medium">{dateFormatter.format(new Date(deal.updatedAt))}</p>
           </div>
         </div>
       </section>

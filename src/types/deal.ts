@@ -33,4 +33,5 @@ export interface Deal {
   preOrder: boolean;
 
   createdAt: string;
+  updatedAt: string;
 }

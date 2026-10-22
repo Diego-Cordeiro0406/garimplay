@@ -58,6 +58,11 @@ export function MainLayout({ children }: MainLayoutProps) {
               nos sites das lojas, que são responsáveis pelos pedidos, entregas e atendimento ao
               consumidor.
             </p>
+
+            <p className="max-w-2xl text-xs leading-relaxed text-muted-foreground">
+              Alguns links divulgados são de afiliados. Isso significa que o garimplay pode receber
+              uma comissão por compras qualificadas, sem custo adicional para você.
+            </p>
           </div>
 
           <div className="mt-6 flex flex-col gap-6 sm:flex-row sm:justify-between">

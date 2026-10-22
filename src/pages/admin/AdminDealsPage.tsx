@@ -1,11 +1,20 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronLeft, ChevronRight, Plus, RefreshCw, Search, Trash2 } from "lucide-react";
+import {
+  ChevronLeft,
+  ChevronRight,
+  Plus,
+  RefreshCw,
+  Search,
+  Trash2,
+  ImageIcon,
+} from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAdminDeals, useDeleteAdminDeal, useUpdateAdminDealStatus } from "@/hooks/useAdminDeals";
+import { DealPublicationDialog } from "@/components/admin/DealPublicationDialog";
 import { formatPrice } from "@/lib/deals";
 import { ADMIN_DEALS_PAGE_SIZE, type AdminDeal } from "@/services/admin-deals";
 import type { DealPlatform, DealStatus } from "@/types/deal";
@@ -67,11 +76,13 @@ function DealRow({
   deal,
   onChangeStatus,
   onDelete,
+  onGenerate,
   busy,
 }: {
   deal: AdminDeal;
   onChangeStatus: (deal: AdminDeal, status: DealStatus) => void;
   onDelete: (deal: AdminDeal) => void;
+  onGenerate: (deal: AdminDeal) => void;
   busy: boolean;
 }) {
   return (
@@ -132,6 +143,12 @@ function DealRow({
           </Button>
         )}
 
+        {deal.status === "published" && (
+          <Button variant="outline" disabled={busy} onClick={() => onGenerate(deal)}>
+            <ImageIcon className="size-4" /> Gerar arte
+          </Button>
+        )}
+
         <Button
           variant="ghost"
           disabled={busy}
@@ -155,6 +172,7 @@ export default function AdminDealsPage() {
   const [page, setPage] = useState(1);
   const [actionError, setActionError] = useState<string | null>(null);
   const [dealToDelete, setDealToDelete] = useState<AdminDeal | null>(null);
+  const [publicationDealId, setPublicationDealId] = useState<string | null>(null);
 
   const { data, isPending, isFetching, isError, refetch } = useAdminDeals({
     search,
@@ -353,6 +371,7 @@ export default function AdminDealsPage() {
                 deal={deal}
                 busy={busy}
                 onChangeStatus={(item, nextStatus) => void handleChangeStatus(item, nextStatus)}
+                onGenerate={(deal) => setPublicationDealId(deal.id)}
                 onDelete={(deal) => {
                   deleteDeal.reset();
                   setActionError(null);
@@ -448,6 +467,10 @@ export default function AdminDealsPage() {
           </AlertDialogFooter>
         </AlertDialogContent>
       </AlertDialog>
+      <DealPublicationDialog
+        dealId={publicationDealId}
+        onClose={() => setPublicationDealId(null)}
+      />
     </div>
   );
 }
