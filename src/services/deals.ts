@@ -19,6 +19,7 @@ const DEAL_SELECT = `
   expires_at,
   pre_order,
   created_at,
+  updated_at,
   store:stores!deals_store_id_fkey (
     id,
     name
@@ -66,6 +67,7 @@ function mapDeal(record: DealRecord): Deal {
     preOrder: record.pre_order,
 
     createdAt: record.created_at,
+    updatedAt: record.updated_at,
   };
 }
 
